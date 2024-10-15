@@ -2,6 +2,7 @@ package com.example.vetappdraft;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,8 +16,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     private Spinner mSpinChoice;
-    private String sBranch;
+    public String sBranch;
     private Button btnSubmit;
+    private String eContact;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         sBranch = mSpinChoice.getSelectedItem().toString();
+                        eContact = findViewById(R.id.phEContact1).toString();
+                        // send to next step
                     }
                 }
         );
