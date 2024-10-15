@@ -1,6 +1,7 @@
 package com.example.vetappdraft;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.view.View;
@@ -31,14 +32,22 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        btnSubmit = findViewById(R.id.btnSubBranch);
+        GradientDrawable gradientDrawable = new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[]{0xFFF6F1E6,0xFFFFC107}
+        );
+        getWindow().getDecorView().setBackground(gradientDrawable);
 
+
+        btnSubmit = findViewById(R.id.btnSubBranch);
+        DatabaseHelper VetDB = new DatabaseHelper(this);
         btnSubmit.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         sBranch = mSpinChoice.getSelectedItem().toString();
                         eContact = findViewById(R.id.phEContact1).toString();
+                        VetDB.insertUser(eContact, sBranch);
                         // send to next step
                     }
                 }
