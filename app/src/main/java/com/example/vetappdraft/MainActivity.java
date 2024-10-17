@@ -14,12 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     private Spinner mSpinChoice;
     public String sBranch;
     private Button btnSubmit;
     private String eContact;
+    private ActivityManager activityManager;
+    private PageAdapter adapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -37,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
                 new int[]{0xFFF6F1E6,0xFFFFC107}
         );
         getWindow().getDecorView().setBackground(gradientDrawable);
+
+        activityManager = new ActivityManager();
+        activityManager.addPage(new Page("Step 1", Step1.class, "", "hello world"));
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new PageAdapter(activityManager.getPages(), this);
+        recyclerView.setAdapter(adapter);
 
 
         btnSubmit = findViewById(R.id.btnSubBranch);
