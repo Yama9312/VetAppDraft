@@ -1,9 +1,9 @@
 package com.example.vetappdraft;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,8 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public String sBranch;
     private Button btnSubmit;
     private String eContact;
-    private ActivityManager activityManager;
-    private PageAdapter adapter;
+    private StepAdapter adapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,15 +41,11 @@ public class MainActivity extends AppCompatActivity {
         );
         getWindow().getDecorView().setBackground(gradientDrawable);
 
-        activityManager = new ActivityManager();
-        activityManager.addPage(new Page("Step 1", Step1.class, "", "hello world"));
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new PageAdapter(activityManager.getPages(), this);
-        recyclerView.setAdapter(adapter);
-
+        //Intent intent = new Intent(this, StepAdapter.getClass());
+        // need to make a page where the user can change the order of the steps
+        // this intent will route them to that page
+        //from there they will be sent to steps 1-8 in the order they created
 
         btnSubmit = findViewById(R.id.btnSubBranch);
         DatabaseHelper VetDB = new DatabaseHelper(this);
