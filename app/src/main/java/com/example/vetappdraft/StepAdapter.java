@@ -47,6 +47,10 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder> {
 
     }
 
+    public ArrayList<Page> getSteps() {
+        return steps;
+    }
+
     @Override
     public int getItemCount() {
         return steps.size();

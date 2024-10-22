@@ -15,6 +15,9 @@
         android:theme="@style/Theme.VetAppDraft"
         tools:targetApi="31">
         <activity
+            android:name=".ChangeStepOrder"
+            android:exported="false" />
+        <activity
             android:name=".modifyStepOrder"
             android:exported="false" />
         <activity
