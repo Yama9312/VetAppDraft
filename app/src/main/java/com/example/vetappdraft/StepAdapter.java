@@ -19,6 +19,9 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder> {
         this.steps = pages;
         this.context = context;
     }
+    public StepAdapter () {
+        this.steps = new ArrayList<>();
+    }
 
     public void addPage(Page insert) {
         steps.add(insert);

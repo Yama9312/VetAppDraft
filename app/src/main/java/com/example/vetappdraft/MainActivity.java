@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     public String sBranch;
     private Button btnSubmit;
     private String eContact;
-    private StepAdapter adapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,26 +40,16 @@ public class MainActivity extends AppCompatActivity {
         );
         getWindow().getDecorView().setBackground(gradientDrawable);
 
-
-        // need to make a page where the user can change the order of the steps
-        // this intent will route them to that page
-        //from there they will be sent to steps 1-8 in the order they created
-
         Intent intent= new Intent(this, ChangeStepOrder.class);
         btnSubmit = findViewById(R.id.btnSubBranch);
         DatabaseHelper VetDB = new DatabaseHelper(this);
-        btnSubmit.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //sBranch = mSpinChoice.getSelectedItem().toString();
-                        //eContact = findViewById(R.id.phEContact1).toString();
-                        //VetDB.insertUser(eContact, sBranch);
-                        startActivity(intent);
-                    }
-                }
-        );
 
+        btnSubmit.setOnClickListener( (view) -> {
+            //sBranch = mSpinChoice.getSelectedItem().toString();
+            //eContact = findViewById(R.id.phEContact1).toString();
+            //VetDB.insertUser(eContact, sBranch);
+            startActivity(intent);
+        });
 
         String[] choiceArray = new String[] {
                 "Army", "Marine Corps", "Navy", "Air Force"

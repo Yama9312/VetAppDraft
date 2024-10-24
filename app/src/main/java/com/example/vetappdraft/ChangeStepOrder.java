@@ -1,5 +1,6 @@
 package com.example.vetappdraft;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +26,7 @@ public class ChangeStepOrder extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        theSteps = new StepAdapter();
         theSteps.addPage(new Page("Step1", step1.class, "no", "take a deep breath"));
         theSteps.addPage(new Page("Step2", step1.class, "no", "Review reasons for living"));
         theSteps.addPage(new Page("Step3", step1.class, "no", "H.A.L.T"));
@@ -36,23 +38,8 @@ public class ChangeStepOrder extends AppCompatActivity {
         theSteps.addPage(new Page("Step9", step1.class, "no", "Call Hotlines"));
         theSteps.addPage(new Page("Step10", step1.class, "no", "Put down the weapon and put both hands on the phone"));
 
-        recyclerView.setAdapter(theSteps);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView rvOrder = findViewById(R.id.rvStepOrder);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                int fromPosition = viewHolder.getAdapterPosition();
-                int toPosition = target.getAdapterPosition();
-                theSteps.onItemMove(fromPosition, toPosition);
-                return true;
-            }
 
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                // No swipe actions needed
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }
