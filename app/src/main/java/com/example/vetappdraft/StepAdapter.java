@@ -1,54 +1,47 @@
 package com.example.vetappdraft;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder> {
     private ArrayList<Page> steps;
+    private Context context;
 
-    public StepAdapter() {
-        steps = new ArrayList<>();
+    public StepAdapter(ArrayList<Page> pages, Context context) {
+        this.steps = pages;
+        this.context = context;
     }
-    public void addPage (Page insert) {
+
+    public void addPage(Page insert) {
         steps.add(insert);
+        notifyItemInserted(steps.size() - 1);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-        }
+    public void onItemMove(int fromPosition, int toPosition) {
+        Page movedPage = steps.remove(fromPosition);
+        steps.add(toPosition, movedPage);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public StepAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_string, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-    }
-
-    public ArrayList<Page> getSteps() {
-        return steps;
+    public void onBindViewHolder(@NonNull StepAdapter.ViewHolder holder, int position) {
+        Page page = steps.get(position);
+        holder.titleTextView.setText(page.getName());
     }
 
     @Override
@@ -56,9 +49,12 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder> {
         return steps.size();
     }
 
-    // Method to handle drag and drop
-    public void onItemMove(int fromPosition, int toPosition) {
-        Collections.swap(steps, fromPosition, toPosition);
-        notifyItemMoved(fromPosition, toPosition);
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTextView;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            titleTextView = itemView.findViewById(R.id.textView);
+        }
     }
 }

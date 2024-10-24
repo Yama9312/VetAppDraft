@@ -7,9 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ChangeStepOrder extends AppCompatActivity {
     public StepAdapter theSteps;
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,14 +26,33 @@ public class ChangeStepOrder extends AppCompatActivity {
             return insets;
         });
         theSteps.addPage(new Page("Step1", step1.class, "no", "take a deep breath"));
-        theSteps.addPage(new Page("Step2", step2.class, "no", "Review reasons for living"));
-        theSteps.addPage(new Page("Step3", step3.class, "no", "H.A.L.T"));
-        theSteps.addPage(new Page("Step4", step4.class, "no", "Practice Breathing Skills"));
-        theSteps.addPage(new Page("Step5", step5.class, "no", "Identify current thoughts, emotions, and body sensations"));
-        theSteps.addPage(new Page("Step6", step6.class, "no", "Do Body Scan Meditation"));
-        theSteps.addPage(new Page("Step7", step7.class, "no", "Listen to Music"));
-        theSteps.addPage(new Page("Step8", step8.class, "no", "Call Someone / See who is online"));
-        theSteps.addPage(new Page("Step9", step9.class, "no", "Call Hotlines"));
-        theSteps.addPage(new Page("Step10", step10.class, "no", "Put down the weapon and put both hands on the phone"));
+        theSteps.addPage(new Page("Step2", step1.class, "no", "Review reasons for living"));
+        theSteps.addPage(new Page("Step3", step1.class, "no", "H.A.L.T"));
+        theSteps.addPage(new Page("Step4", step1.class, "no", "Practice Breathing Skills"));
+        theSteps.addPage(new Page("Step5", step1.class, "no", "Identify current thoughts, emotions, and body sensations"));
+        theSteps.addPage(new Page("Step6", step1.class, "no", "Do Body Scan Meditation"));
+        theSteps.addPage(new Page("Step7", step1.class, "no", "Listen to Music"));
+        theSteps.addPage(new Page("Step8", step1.class, "no", "Call Someone / See who is online"));
+        theSteps.addPage(new Page("Step9", step1.class, "no", "Call Hotlines"));
+        theSteps.addPage(new Page("Step10", step1.class, "no", "Put down the weapon and put both hands on the phone"));
+
+        recyclerView.setAdapter(theSteps);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                theSteps.onItemMove(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // No swipe actions needed
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }

@@ -42,21 +42,21 @@ public class MainActivity extends AppCompatActivity {
         getWindow().getDecorView().setBackground(gradientDrawable);
 
 
-        //Intent intent = new Intent(this, StepAdapter.getClass());
         // need to make a page where the user can change the order of the steps
         // this intent will route them to that page
         //from there they will be sent to steps 1-8 in the order they created
 
+        Intent intent= new Intent(this, ChangeStepOrder.class);
         btnSubmit = findViewById(R.id.btnSubBranch);
         DatabaseHelper VetDB = new DatabaseHelper(this);
         btnSubmit.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        sBranch = mSpinChoice.getSelectedItem().toString();
-                        eContact = findViewById(R.id.phEContact1).toString();
-                        VetDB.insertUser(eContact, sBranch);
-                        // send to next step
+                        //sBranch = mSpinChoice.getSelectedItem().toString();
+                        //eContact = findViewById(R.id.phEContact1).toString();
+                        //VetDB.insertUser(eContact, sBranch);
+                        startActivity(intent);
                     }
                 }
         );
