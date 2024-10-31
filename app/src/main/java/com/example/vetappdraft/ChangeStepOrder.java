@@ -38,7 +38,7 @@ public class ChangeStepOrder extends AppCompatActivity {
         theSteps.addPage(new Page("Step9", step1.class, "no", "Call Hotlines"));
         theSteps.addPage(new Page("Step10", step1.class, "no", "Put down the weapon and put both hands on the phone"));
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView rvOrder = findViewById(R.id.rvStepOrder);
+        RecyclerView rvOrder = findViewById(R.id.rvStepOrder);
 
 
     }

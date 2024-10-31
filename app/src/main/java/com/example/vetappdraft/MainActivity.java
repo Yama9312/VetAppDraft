@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -14,18 +13,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private Spinner mSpinChoice;
     public String sBranch;
     private Button btnSubmit;
     private String eContact;
+    private VetDatabase mcDB;
+    private VetDAO mcDAO;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mcDB = VetDatabase.getInstance(this);
+        mcDAO = mcDB.vetDAO();
+
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -38,16 +44,30 @@ public class MainActivity extends AppCompatActivity {
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[]{0xFFF6F1E6,0xFFFFC107}
         );
-        getWindow().getDecorView().setBackground(gradientDrawable);
 
         Intent intent= new Intent(this, ChangeStepOrder.class);
+
+
+        new Thread(() -> {
+            int userCount = mcDAO.getSize();
+
+            runOnUiThread(() -> {
+                if (userCount > 0) {
+                    startActivity(intent);
+                }
+            });
+        }).start();
+        getWindow().getDecorView().setBackground(gradientDrawable);
+
         btnSubmit = findViewById(R.id.btnSubBranch);
-        DatabaseHelper VetDB = new DatabaseHelper(this);
 
         btnSubmit.setOnClickListener( (view) -> {
-            //sBranch = mSpinChoice.getSelectedItem().toString();
-            //eContact = findViewById(R.id.phEContact1).toString();
-            //VetDB.insertUser(eContact, sBranch);
+            sBranch = mSpinChoice.getSelectedItem().toString();
+            eContact = findViewById(R.id.phEContact1).toString();
+            Executors.newSingleThreadExecutor().execute(() -> {
+                VetUser newUser = new VetUser (sBranch, eContact);
+                mcDAO.insert(newUser);
+            });
             startActivity(intent);
         });
 
