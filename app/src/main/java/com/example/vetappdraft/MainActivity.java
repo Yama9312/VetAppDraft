@@ -43,13 +43,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        GradientDrawable gradientDrawable = new GradientDrawable(
-                GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[]{0xFFF6F1E6,0xFFFFC107}
-        );
 
         Intent intent= new Intent(this, ChangeStepOrder.class);
-
 
         new Thread(() -> {
             int userCount = mcDAO.getSize();
@@ -60,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }).start();
-        getWindow().getDecorView().setBackground(gradientDrawable);
 
         btnSubmit = findViewById(R.id.btnSubBranch);
 
@@ -92,6 +86,31 @@ public class MainActivity extends AppCompatActivity {
                         String selectedBranch = (String) adapterView.getItemAtPosition (i);
 
                         // change color scheme depending on choice of branch
+                        int[] colors;
+                        switch(selectedBranch) {
+                            case "Army":
+                                colors = new int[]{0xFFF6F1E6,0xFFFFC107};
+                                break;
+                            case "Marine Corps":
+                                colors = new int[]{0xFFF4DF19, 0xFFF50001};
+                                break;
+                            case "Navy":
+                                colors = new int[]{0xFFFFFF06,0xFF00007B};
+                                break;
+                            case "Air Force":
+                                colors = new int[]{0xFFF8FBFA,0xFF144D80};
+                                break;
+                            default:
+                                colors = new int[]{0xFFF6F1E6,0xFFFFC107};
+                                break;
+                        }
+
+                        GradientDrawable gradientDrawable = new GradientDrawable(
+                                GradientDrawable.Orientation.TOP_BOTTOM,
+                                colors
+                        );
+
+                        getWindow().getDecorView().setBackground(gradientDrawable);
 
                     }
 
