@@ -36,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
                 colors = new int[]{0xFFF8FBFA,0xFF144D80};
                 break;
             default:
-                colors = new int[]{0xFFF6F1E6,0xFFFFC107};
+                colors = new int[]{0xFFFFFFFF,0xFFFFFFFF};
                 break;
         }
 

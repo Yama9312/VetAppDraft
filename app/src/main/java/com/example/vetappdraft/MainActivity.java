@@ -68,6 +68,7 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        // initializing spinner
         String[] choiceArray = new String[] {
                 "Army", "Marine Corps", "Navy", "Air Force"
         };
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity {
                                 colors = new int[]{0xFFF8FBFA,0xFF144D80};
                                 break;
                             default:
-                                colors = new int[]{0xFFF6F1E6,0xFFFFC107};
+                                colors = new int[]{0xFFFFFFFF,0xFFFFFFFF};
                                 break;
                         }
 
