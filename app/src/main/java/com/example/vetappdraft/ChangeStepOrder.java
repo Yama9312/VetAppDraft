@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ChangeStepOrder extends AppCompatActivity {
+public class ChangeStepOrder extends BaseActivity {
     public StepAdapter theSteps;
     private RecyclerView recyclerView;
 

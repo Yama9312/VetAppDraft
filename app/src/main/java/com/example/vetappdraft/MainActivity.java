@@ -20,7 +20,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.util.concurrent.Executors;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private Spinner mSpinChoice;
     public String sBranch;
     private Button btnSubmit;
@@ -85,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
                                                 View view, int i, long l) {
                         String selectedBranch = (String) adapterView.getItemAtPosition (i);
 
+                        getSharedPreferences("AppPreferences", MODE_PRIVATE)
+                                .edit()
+                                .putString("selectedBranch", selectedBranch)
+                                .apply();
+
+                        updateColorScheme(selectedBranch);
+                    }
+
+                    private void updateColorScheme(String selectedBranch) {
                         // change color scheme depending on choice of branch
                         int[] colors;
                         switch(selectedBranch) {
@@ -111,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                         );
 
                         getWindow().getDecorView().setBackground(gradientDrawable);
-
                     }
 
                     @Override
