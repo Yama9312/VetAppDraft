@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">VetAppDraft</string>
+    <string name="set_goToNextActivity">Set</string>
+    <string name="top_of_the_screen_slogan">Honor\t•\tDuty\t•\tCountry</string>
+    <string name="EmergencyContacts">EMS 911\nVSH 1-800-273-8255</string>
+    <string name="SubmitSettingsButton">Submit</string>
+    <string name="EmergencyContactRequest">Enter your emergency contact\'s phone number:</string>
+    <string name="BranchSelection">Select your Branch of service:</string>
 </resources>

@@ -27,6 +27,9 @@
             android:name=".ChangeStepOrder"
             android:exported="false" />
         <activity
+            android:name=".generalStep"
+            android:exported="false" />
+        <activity
             android:name=".modifyStepOrder"
             android:exported="false" />
         <activity
