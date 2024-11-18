@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,16 +26,22 @@ public class MainActivity extends BaseActivity {
     private Spinner mSpinChoice;
     public String sBranch;
     private Button btnSubmit;
+    private EditText etContact;
     private String eContact;
+    private TextView tvValidPhoneCheck;
+
     private VetDatabase mcDB;
     private VetDAO mcDAO;
+
+    private boolean bIsEmpty = true;
+    private boolean bIsEnoughCharacters = false;
+    private boolean bIsNaturalNumber = true;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mcDB = VetDatabase.getInstance(this);
         mcDAO = mcDB.vetDAO();
-
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -43,6 +51,10 @@ public class MainActivity extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btnSubmit = findViewById(R.id.btnSubBranch);
+        etContact = findViewById(R.id.phEContact1);
+        tvValidPhoneCheck = findViewById (R.id.tvValidPhone);
 
         Intent intent= new Intent(this, ChangeStepOrder.class);
 
@@ -56,16 +68,25 @@ public class MainActivity extends BaseActivity {
             });
         }).start();
 
-        btnSubmit = findViewById(R.id.btnSubBranch);
-
+        // hitting submit
         btnSubmit.setOnClickListener( (view) -> {
             sBranch = mSpinChoice.getSelectedItem().toString();
-            eContact = findViewById(R.id.phEContact1).toString();
-            Executors.newSingleThreadExecutor().execute(() -> {
-                VetUser newUser = new VetUser (sBranch, eContact);
-                mcDAO.insert(newUser);
-            });
-            startActivity(intent);
+            eContact = etContact.toString().trim ();
+
+            // Validation logic
+            if (validatePhoneNumber(eContact)) {
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    VetUser newUser = new VetUser(sBranch, eContact);
+                    mcDAO.insert(newUser);
+                });
+                startActivity(intent);
+            } else if (bIsEmpty) {
+                tvValidPhoneCheck.setText ("Enter your emergency contact in order to proceed");
+            } else if (!bIsNaturalNumber) {
+                tvValidPhoneCheck.setText ("Only numbers allowed");
+            } else if (!bIsEnoughCharacters) {
+                tvValidPhoneCheck.setText ("Please enter a 10 character phone number (no country code)");
+            }
         });
 
         // initializing spinner
@@ -131,4 +152,25 @@ public class MainActivity extends BaseActivity {
                 }
         );
     }
+
+    private boolean validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber.isEmpty()) {
+            bIsEmpty = true;
+            return false;
+        }
+
+        // check if phone number contains only digits
+        if (!phoneNumber.matches("\\d+")) {
+            bIsNaturalNumber = false;
+            return false;
+        }
+
+        if (phoneNumber.length () != 10) {
+            bIsEnoughCharacters = false;
+            return false;
+        }
+
+        return true;
+    }
+
 }

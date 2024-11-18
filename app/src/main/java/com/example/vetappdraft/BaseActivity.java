@@ -64,7 +64,7 @@ public class BaseActivity extends AppCompatActivity {
 //
 //        mcBtnEmergency = findViewById(R.id.imageBtnEmergency);
 //        emergencyButton.setOnClickListener(v -> {
-//            // start an emerge    qaadancy activity
+//            // start an emergency activity
 //        });
 //
 //        mcBtnSettings = findViewById(R.id.imageBtnSettings);
