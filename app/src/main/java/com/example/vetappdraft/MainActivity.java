@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,25 +70,27 @@ public class MainActivity extends BaseActivity {
             });
         }).start();
 
+        etContact.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         // hitting submit
         btnSubmit.setOnClickListener( (view) -> {
             sBranch = mSpinChoice.getSelectedItem().toString();
             eContact = etContact.toString().trim ();
 
             // Validation logic
-            if (validatePhoneNumber(eContact)) {
+//            if (validatePhoneNumber(eContact)) {
                 Executors.newSingleThreadExecutor().execute(() -> {
                     VetUser newUser = new VetUser(sBranch, eContact);
                     mcDAO.insert(newUser);
                 });
                 startActivity(intent);
-            } else if (bIsEmpty) {
-                tvValidPhoneCheck.setText ("Enter your emergency contact in order to proceed");
-            } else if (!bIsNaturalNumber) {
-                tvValidPhoneCheck.setText ("Only numbers allowed");
-            } else if (!bIsEnoughCharacters) {
-                tvValidPhoneCheck.setText ("Please enter a 10 character phone number (no country code)");
-            }
+//            } else if (bIsEmpty) {
+//                tvValidPhoneCheck.setText ("Enter your emergency contact in order to proceed");
+//            } else if (!bIsNaturalNumber) {
+//                tvValidPhoneCheck.setText ("Only numbers allowed");
+//            } else if (!bIsEnoughCharacters) {
+//                tvValidPhoneCheck.setText ("Please enter a 10 character phone number (no country code)");
+//            }
         });
 
         // initializing spinner
