@@ -41,15 +41,20 @@ dependencies {
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-// optional - RxJava2 support for Room
-//implementation "androidx.room:room-rxjava2:$room_version"
-// optional - RxJava3 support for Room
+    // optional - RxJava2 support for Room
+    //implementation "androidx.room:room-rxjava2:$room_version"
+    // optional - RxJava3 support for Room
     implementation "androidx.room:room-rxjava3:$room_version"
-// optional - Guava support for Room, including Optional and ListenableFuture
+    // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
-// optional - Test helpers
+    // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
-// optional - Paging 3 Integration
+    // optional - Paging 3 Integration
     implementation "androidx.room:room-paging:$room_version"
-// This differs from the online docs!
+    // This differs from the online docs!
+
+    // for phone number formatting
+    implementation platform('androidx.compose:compose-bom:2024.10.01')
+    implementation 'androidx.compose.material3:material3'
+
 }

@@ -2,6 +2,11 @@ package com.example.vetappdraft;
 
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class BaseActivity extends AppCompatActivity {
+    private TextView mcTitle;
+    private LinearLayout mcBar;
+    private ImageButton mcBtnSettings, mcBtnEmergency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,4 +55,23 @@ public class BaseActivity extends AppCompatActivity {
 
         getWindow().getDecorView().setBackground(gradientDrawable);
     }
+
+//    protected void addTopBar() {
+//        //View topBar = LayoutInflater.from(this).inflate(R.layout.top_bar, null);
+//
+//        mcTitle = findViewById(R.id.tvCoreValues);
+//        // mcTitle.setText(title);
+//
+//        mcBtnEmergency = findViewById(R.id.imageBtnEmergency);
+//        emergencyButton.setOnClickListener(v -> {
+//            // start an emergency activity
+//        });
+//
+//        mcBtnSettings = findViewById(R.id.imageBtnSettings);
+//        settingsButton.setOnClickListener(v -> {
+//            // start a settings activity
+//        });
+//
+//        //setContentView(topBar);
+//    }
 }

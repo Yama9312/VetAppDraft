@@ -7,23 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".ChangeStepOrder">
 
+    <include layout="@layout/top_bar"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvStepOrder"
-        android:layout_width="323dp"
-        android:layout_height="538dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813" />
+            android:id="@+id/rvStepOrder"
+            android:layout_width="323dp"
+            android:layout_height="538dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.606" />
 
     <TextView
-        android:id="@+id/tvSetOrder"
-        android:layout_width="277dp"
-        android:layout_height="76dp"
-        android:text="Set Step Order:"
-        app:layout_constraintBottom_toTopOf="@+id/rvStepOrder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/tvSetOrder"
+            android:layout_width="277dp"
+            android:layout_height="76dp"
+            android:text="Set Step Order:"
+            app:layout_constraintBottom_toTopOf="@+id/rvStepOrder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.975" />
+
+    <Button
+            android:text="@string/set_goToNextActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNextAct"
+            app:layout_constraintTop_toBottomOf="@+id/rvStepOrder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintVertical_bias="0.428" />
 </androidx.constraintlayout.widget.ConstraintLayout>
