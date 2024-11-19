@@ -9,15 +9,15 @@ public class VetUser {
     @PrimaryKey (autoGenerate = true)
     private int UID;
 
-    public void setUID(int UID) {
-        this.UID = UID;
-    }
-
     @ColumnInfo (name = "mcBranch")
     private String mcBranch;
 
     @ColumnInfo (name = "mcEContact")
     private String mcEContact;
+
+    public void setUID(int UID) {
+        this.UID = UID;
+    }
 
     public VetUser(String mcBranch, String mcEContact) {
         this.mcBranch = mcBranch;

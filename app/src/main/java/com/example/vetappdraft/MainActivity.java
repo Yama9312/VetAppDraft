@@ -4,19 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import androidx.room.Room;
 
 import java.util.concurrent.Executors;
 
@@ -28,11 +27,12 @@ public class MainActivity extends BaseActivity {
     private VetDatabase mcDB;
     private VetDAO mcDAO;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mcDB = VetDatabase.getInstance(this);
-        mcDAO = mcDB.vetDAO();
+        mcDB = Room.databaseBuilder (getApplicationContext (),
+            VetDatabase.class, "VET-DB").build();
+        mcDAO = mcDB.vetDAO ();
 
 
         super.onCreate(savedInstanceState);
@@ -60,7 +60,8 @@ public class MainActivity extends BaseActivity {
 
         btnSubmit.setOnClickListener( (view) -> {
             sBranch = mSpinChoice.getSelectedItem().toString();
-            eContact = findViewById(R.id.phEContact1).toString();
+            TextView Contact= findViewById(R.id.phEContact1);
+            eContact= Contact.getText ().toString ();
             Executors.newSingleThreadExecutor().execute(() -> {
                 VetUser newUser = new VetUser (sBranch, eContact);
                 mcDAO.insert(newUser);
