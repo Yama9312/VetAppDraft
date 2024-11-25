@@ -100,16 +100,16 @@ public class MainActivity extends BaseActivity {
                         int[] colors;
                         switch(selectedBranch) {
                             case "Army":
-                                colors = new int[]{0xFFF6F1E6,0xFFFFC107};
+                                colors = new int[]{0xFFFEFEFE,0xFFFDE37D};
                                 break;
                             case "Marine Corps":
-                                colors = new int[]{0xFFF4DF19, 0xFFF50001};
+                                colors = new int[]{0xFFFDF3DE, 0xFFBE2321};
                                 break;
                             case "Navy":
-                                colors = new int[]{0xFFFFFF06,0xFF00007B};
+                                colors = new int[]{0xFFFFFEFC,0xFFF3C881};
                                 break;
                             case "Air Force":
-                                colors = new int[]{0xFFF8FBFA,0xFF144D80};
+                                colors = new int[]{0xFFFEF5E0,0xFFC1871F};
                                 break;
                             default:
                                 colors = new int[]{0xFFFFFFFF,0xFFFFFFFF};
