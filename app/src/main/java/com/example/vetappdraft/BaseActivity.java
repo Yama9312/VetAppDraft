@@ -30,6 +30,12 @@ public class BaseActivity extends AppCompatActivity {
             case "Air Force":
                 colors = new int[]{0xFFFEF5E0,0xFFC1871F};
                 break;
+            case "Coast Guard":
+                colors = new int[]{0xFFFFFFFF,0xFF205698};
+                break;
+            case "Grey Scale":
+                colors = new int[]{0xFFFEFEFE,0xFF59595B};
+                break;
             default:
                 colors = new int[]{0xFFFFFFFF,0xFFFFFFFF};
                 break;

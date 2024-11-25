@@ -71,7 +71,8 @@ public class MainActivity extends BaseActivity {
 
         // initializing spinner
         String[] choiceArray = new String[] {
-                "Army", "Marine Corps", "Navy", "Air Force"
+                "Army", "Marine Corps", "Navy", "Air Force",
+                "Coast Guard", "Grey Scale"
         };
         ArrayAdapter<String> choiceAdapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_spinner_dropdown_item, choiceArray);
@@ -110,6 +111,12 @@ public class MainActivity extends BaseActivity {
                                 break;
                             case "Air Force":
                                 colors = new int[]{0xFFFEF5E0,0xFFC1871F};
+                                break;
+                            case "Coast Guard":
+                                colors = new int[]{0xFFFFFFFF,0xFF205698};
+                                break;
+                            case "Grey Scale":
+                                colors = new int[]{0xFFFEFEFE,0xFF59595B};
                                 break;
                             default:
                                 colors = new int[]{0xFFFFFFFF,0xFFFFFFFF};
