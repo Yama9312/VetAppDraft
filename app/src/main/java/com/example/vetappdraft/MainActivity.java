@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,7 +28,8 @@ public class MainActivity extends BaseActivity {
     private String eContact;
     private VetDatabase mcDB;
     private VetDAO mcDAO;
-
+    private Toolbar topBar;
+    private ImageButton btnSettings, btnEmergency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,16 @@ public class MainActivity extends BaseActivity {
             VetDatabase.class, "VET-DB").build();
         mcDAO = mcDB.vetDAO ();
 
+        topBar = findViewById(R.id.topAppBar);
+        setSupportActionBar(topBar);
+
+        // those fucking top bar buttons break everything
+
+//        btnSettings = findViewById(R.id.settingsButton);
+//        btnSettings.setOnClickListener(v -> {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//        });
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
