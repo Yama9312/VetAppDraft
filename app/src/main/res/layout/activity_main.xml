@@ -7,83 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include layout="@layout/top_bar"/>
+    <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Spinner
-            android:id="@+id/spnBranch"
-            android:layout_width="365dp"
-            android:layout_height="77dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.314" />
+        <!-- Placeholder for NavigationBarFragment -->
+        <FrameLayout
+                android:id="@+id/navigation_bar_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <EditText
-            android:id="@+id/phEContact1"
-            android:layout_width="224dp"
-            android:layout_height="62dp"
-            android:ems="10"
-            android:inputType="phone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.585"
-            android:hint="@string/EmergencyContactReuestHint" />
+        <!-- Main content -->
+        <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize" />
+    </FrameLayout>
 
-    <TextView
-            android:id="@+id/ECMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/EmergencyContactRequest"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spnBranch"
-            app:layout_constraintVertical_bias="0.105"
-            android:textSize="16sp"
-            android:gravity="center" />
-
-    <TextView
-            android:id="@+id/StartTitle"
-            android:layout_width="348dp"
-            android:layout_height="41dp"
-            android:text="@string/BranchSelection"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.22"
-            android:gravity="center" />
-
-    <Button
-            android:id="@+id/btnSubBranch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SubmitSettingsButton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.83" />
-
-    <TextView
-            android:layout_width="285dp"
-            android:layout_height="36dp"
-            android:id="@+id/tvValidPhone"
-            app:layout_constraintTop_toBottomOf="@+id/phEContact1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintVertical_bias="0.081"
-            android:gravity="center"
-            android:textColor="#F44336" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,11 @@
 package com.example.vetappdraft;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,145 +14,42 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
+import java.net.URLEncoder;
 import java.util.concurrent.Executors;
 
-public class MainActivity extends BaseActivity {
-    private Spinner mSpinChoice;
-    public String sBranch;
-    private Button btnSubmit;
-    private String eContact;
-    private VetDatabase mcDB;
-    private VetDAO mcDAO;
-    private Toolbar topBar;
-    private ImageButton btnSettings, btnEmergency;
-
+public class MainActivity extends BaseActivity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mcDB = Room.databaseBuilder (getApplicationContext (),
-            VetDatabase.class, "VET-DB").build();
-        mcDAO = mcDB.vetDAO ();
-
-        topBar = findViewById(R.id.topAppBar);
-        setSupportActionBar(topBar);
-
-        // those fucking top bar buttons break everything
-
-//        btnSettings = findViewById(R.id.settingsButton);
-//        btnSettings.setOnClickListener(v -> {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//        });
-
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        Intent intent= new Intent(this, ChangeStepOrder.class);
+        // Add NavigationBarFragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.navigation_bar_container, new TopNavBarFragment ());
+        transaction.commit();
 
-        new Thread(() -> {
-            int userCount = mcDAO.getSize();
+        // Load initial content fragment
+        loadContentFragment(new FirstSetupFragment ());
+    }
 
-            runOnUiThread(() -> {
-                if (userCount > 0) {
-                    startActivity(intent);
-                }
-            });
-        }).start();
-
-        btnSubmit = findViewById(R.id.btnSubBranch);
-
-        btnSubmit.setOnClickListener( (view) -> {
-            sBranch = mSpinChoice.getSelectedItem().toString();
-            TextView Contact= findViewById(R.id.phEContact1);
-            eContact= Contact.getText ().toString ();
-            Executors.newSingleThreadExecutor().execute(() -> {
-                VetUser newUser = new VetUser (sBranch, eContact);
-                mcDAO.insert(newUser);
-            });
-            startActivity(intent);
-        });
-
-        // initializing spinner
-        String[] choiceArray = new String[] {
-                "Army", "Marine Corps", "Navy", "Air Force",
-                "Coast Guard", "Grey Scale"
-        };
-        ArrayAdapter<String> choiceAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_spinner_dropdown_item, choiceArray);
-        choiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinChoice = (Spinner) findViewById(R.id.spnBranch);
-        mSpinChoice.setAdapter(choiceAdapter);
-
-        // spinner with branches
-        mSpinChoice.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener () {
-                    @Override
-                    public void onItemSelected (AdapterView<?> adapterView,
-                                                View view, int i, long l) {
-                        String selectedBranch = (String) adapterView.getItemAtPosition (i);
-
-                        getSharedPreferences("AppPreferences", MODE_PRIVATE)
-                                .edit()
-                                .putString("selectedBranch", selectedBranch)
-                                .apply();
-
-                        updateColorScheme(selectedBranch);
-                    }
-
-                    private void updateColorScheme(String selectedBranch) {
-                        // change color scheme depending on choice of branch
-                        int[] colors;
-                        switch(selectedBranch) {
-                            case "Army":
-                                colors = new int[]{0xFFFEFEFE,0xFFFDE37D};
-                                break;
-                            case "Marine Corps":
-                                colors = new int[]{0xFFFDF3DE, 0xFFBE2321};
-                                break;
-                            case "Navy":
-                                colors = new int[]{0xFFFFFEFC,0xFFF3C881};
-                                break;
-                            case "Air Force":
-                                colors = new int[]{0xFFFEF5E0,0xFFC1871F};
-                                break;
-                            case "Coast Guard":
-                                colors = new int[]{0xFFFFFFFF,0xFF205698};
-                                break;
-                            case "Grey Scale":
-                                colors = new int[]{0xFFFEFEFE,0xFF59595B};
-                                break;
-                            default:
-                                colors = new int[]{0xFFFFFFFF,0xFFFFFFFF};
-                                break;
-                        }
-
-                        GradientDrawable gradientDrawable = new GradientDrawable(
-                                GradientDrawable.Orientation.TOP_BOTTOM,
-                                colors
-                        );
-
-                        getWindow().getDecorView().setBackground(gradientDrawable);
-                    }
-
-                    @Override
-                    public void onNothingSelected (AdapterView<?>
-                                                           adapterView) {
-                        // first option by default
-                    }
-                }
-        );
+    public void loadContentFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
     }
 }

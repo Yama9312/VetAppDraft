@@ -7,4 +7,5 @@
     <string name="EmergencyContactRequest">Enter your emergency contact\'s phone number:</string>
     <string name="BranchSelection">Select your Branch of service:</string>
     <string name="EmergencyContactReuestHint">Enter phone number...</string>
+    <string name="hello_blank_fragment">VetApp</string>
 </resources>
