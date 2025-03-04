@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
 import android.os.health.PackageHealthStats;
@@ -36,7 +37,6 @@ public class FirstSetupFragment extends Fragment {
 
   private VetDatabase mcDB;
   private VetDAO mcDAO;
-  private Vector<Page> thePages = new Vector<>();
 
   public FirstSetupFragment ()
   {
@@ -62,37 +62,6 @@ public class FirstSetupFragment extends Fragment {
     mSpinChoice = view.findViewById(R.id.spnBranch);
     tvContact = view.findViewById(R.id.phEContact1);
 
-    thePages.add(new Page("step 1", MainActivity.class, "", "take a deep breath"));
-    thePages.add(new Page("step 2", MainActivity.class, "", "review reasons for living\nPhone a friend"));
-    thePages.add(new Page("step 3", MainActivity.class, "", "H.A.L.T"));
-    thePages.add(new Page("step 4", MainActivity.class, "", "2 minute mindful breathing"));
-    thePages.add(new Page("step 5", MainActivity.class, "", "safety SOP"));
-    thePages.add(new Page("step 6", MainActivity.class, "", "body scan meditation"));
-    thePages.add(new Page("step 7", MainActivity.class, "", "listen to music"));
-    thePages.add(new Page("step 8", MainActivity.class, "", "call someone\nsee who is online"));
-    thePages.add(new Page("step 9", MainActivity.class, "", "call hotlines"));
-    thePages.add(new Page("step 10", MainActivity.class, "", "put weapons down"));
-    thePages.add(new Page("step 11", MainActivity.class, "", "observe & describe"));
-    thePages.add(new Page("step 12", MainActivity.class, "", "leaves on a stream"));
-    thePages.add(new Page("step 13", MainActivity.class, "", "identify values"));
-    thePages.add(new Page("step 14", MainActivity.class, "", "mindful walking"));
-    thePages.add(new Page("step 15", MainActivity.class, "", "progressive muscle relaxation"));
-    thePages.add(new Page("step 16", MainActivity.class, "", "distract yourself\n(test on the screen)"));
-    thePages.add(new Page("step 17", MainActivity.class, "", "awareness of thoughts"));
-    thePages.add(new Page("step 18", MainActivity.class, "", "follow the circle"));
-    thePages.add(new Page("step 19", MainActivity.class, "", "urge surfing"));
-    thePages.add(new Page("step 20", MainActivity.class, "", "S.O.B.E.R\nStop\nobserve\nbreath\nexpand\nrespond"));
-    thePages.add(new Page("step 21", MainActivity.class, "", "four squared breathing"));
-    thePages.add(new Page("step 22", MainActivity.class, "", "diaphragmatic breathing"));
-    thePages.add(new Page("step 23", MainActivity.class, "", "5 senses"));
-    thePages.add(new Page("step 24", MainActivity.class, "", "mountain meditation"));
-    thePages.add(new Page("step 25", MainActivity.class, "", "distractions"));
-    thePages.add(new Page("step 26", MainActivity.class, "", "whole body breathing"));
-    thePages.add(new Page("step 27", MainActivity.class, "", "breathing space"));
-    thePages.add(new Page("step 28", MainActivity.class, "", "breathing body"));
-
-
-
     mcDB = Room.databaseBuilder(requireContext(),
         VetDatabase.class, "VET-DB").build();
     mcDAO = mcDB.vetDAO();
@@ -115,8 +84,15 @@ public class FirstSetupFragment extends Fragment {
       Executors.newSingleThreadExecutor().execute(() -> {
         VetUser newUser = new VetUser(sBranch, eContact);
         mcDAO.insert(newUser);
+
+        // Switch to DynamicPageFragment after database insertion
+        requireActivity().runOnUiThread(() -> {
+          FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0)); // Start at page 0
+          transaction.commit();
+        });
       });
-      startActivity(intent);
+      // startActivity(intent);
     });
 
     // initializing spinner
