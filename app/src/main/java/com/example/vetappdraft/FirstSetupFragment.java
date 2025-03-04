@@ -67,13 +67,25 @@ public class FirstSetupFragment extends Fragment {
     mcDAO = mcDB.vetDAO();
 
     Intent intent = new Intent(requireActivity(), ChangeStepOrder.class);
+    // need to change this to route to fragment
 
     new Thread(() -> {
       int userCount = mcDAO.getSize();
 
       requireActivity().runOnUiThread(() -> {
         if (userCount > 0) {
-          startActivity(intent);
+          // Create an instance of DynamicPageFragment
+          DynamicPageFragment dynamicPageFragment = new DynamicPageFragment();
+
+          // Start a fragment transaction
+          FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+          // Optionally, add this fragment to the back stack
+          transaction.replace(R.id.fragment_container, dynamicPageFragment);
+          transaction.addToBackStack(null); // Add this fragment to the back stack if you want to allow back navigation
+
+          // Commit the transaction
+          transaction.commit();
         }
       });
     }).start();
