@@ -100,7 +100,7 @@ public class FirstSetupFragment extends Fragment {
         // Switch to DynamicPageFragment after database insertion
         requireActivity().runOnUiThread(() -> {
           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0)); // Start at page 0
+          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0)); // starting at page 0
           transaction.commit();
         });
       });

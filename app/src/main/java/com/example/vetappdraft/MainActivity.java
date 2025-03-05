@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,8 +31,10 @@ import java.net.URLEncoder;
 import java.util.Vector;
 import java.util.concurrent.Executors;
 
-public class MainActivity extends BaseActivity
-{
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class MainActivity extends BaseActivity {
 
     private Vector<Page> pages = new Vector<>();
 

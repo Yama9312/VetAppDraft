@@ -21,7 +21,7 @@ public class DynamicPageFragment extends Fragment {
   private int mPageIndex;
   private static final String ARG_PAGE_INDEX = "page_index";
 
-  public static DynamicPageFragment newInstance(int pageIndex) {
+  public static Fragment newInstance(int pageIndex) {
     DynamicPageFragment fragment = new DynamicPageFragment();
     Bundle args = new Bundle();
     args.putInt(ARG_PAGE_INDEX, pageIndex);
