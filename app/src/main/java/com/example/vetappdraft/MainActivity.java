@@ -38,15 +38,24 @@ public class MainActivity extends BaseActivity {
 
     private Vector<Page> pages = new Vector<>();
 
+    /**
+     * Retrieves the list of pages in the app.
+     * @return A vector containing the pages.
+     */
     public Vector<Page> getPages(){
         return pages;
     }
 
+    /**
+     * Initializes the activity, sets up the layout, and loads initial fragments.
+     * @param savedInstanceState The previously saved instance state, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Add predefined pages
         pages.add(new Page("step 1", Page.PageType.TEXT, "take a deep breath", ""));
         pages.add(new Page("step 2", Page.PageType.TEXT, "review reasons for living\nPhone a friend", ""));
         pages.add(new Page("step 3", Page.PageType.TEXT, "H.A.L.T", ""));
@@ -76,17 +85,20 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space", ""));
         pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body", ""));
 
-
         // Add NavigationBarFragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.navigation_bar_container, new TopNavBarFragment ());
+        transaction.replace(R.id.navigation_bar_container, new TopNavBarFragment());
         transaction.commit();
 
         // Load initial content fragment
-        loadContentFragment(new FirstSetupFragment ());
+        loadContentFragment(new FirstSetupFragment());
     }
 
+    /**
+     * Loads the specified content fragment into the main fragment container.
+     * @param fragment The fragment to be loaded.
+     */
     public void loadContentFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

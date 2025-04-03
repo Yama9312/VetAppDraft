@@ -1,25 +1,47 @@
+//***************************************************************************
+// File name:   BaseActivity
+// Author:      Berglund Center Coding team
+// Date:        4/3/25
+// Purpose:     base activity for the Veterans app
+//***************************************************************************
 package com.example.vetappdraft;
-
-import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+//***************************************************************************
+// Activity:    BaseActivity
+//
+// Description: Base Activity for the veterans app
+//***************************************************************************
 public class BaseActivity extends AppCompatActivity {
 
+    //***************************************************************************
+    // Method:      onCreate
+    //
+    // Description: the method that is run on page creation
+    //
+    // Parameters: 	savedInstanceState - current instance
+    //
+    // Returned:    None
+    //***************************************************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         applyChosenColorScheme();
     }
-
+    //***************************************************************************
+    // Method:      applyChosenColorScheme
+    //
+    // Description: applies users selected color scheme to the page
+    //
+    // Parameters: 	none
+    //
+    // Returned:    None
+    //***************************************************************************
     private void applyChosenColorScheme() {
         String selectedBranch = getSharedPreferences("AppPreferences", MODE_PRIVATE)
                 .getString("selectedBranch", "Default");
-
         int[] colors;
         switch(selectedBranch) {
             case "Army":

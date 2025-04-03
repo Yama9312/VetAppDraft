@@ -1,3 +1,9 @@
+//***************************************************************************
+// File name:   FirstSetupFragment
+// Author:      Berglund Center Coding team
+// Date:        4/3/25
+// Purpose:     Handles the initial setup process for the app
+//***************************************************************************
 package com.example.vetappdraft;
 
 import android.content.Intent;
@@ -6,12 +12,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
-import android.os.health.PackageHealthStats;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +26,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Vector;
 import java.util.concurrent.Executors;
 
 public class FirstSetupFragment extends Fragment {
@@ -38,22 +41,49 @@ public class FirstSetupFragment extends Fragment {
   private VetDatabase mcDB;
   private VetDAO mcDAO;
 
-  public FirstSetupFragment ()
-  {
+  //***************************************************************************
+  // Method:      FirstSetupFragment
+  //
+  // Description: Default constructor for the fragment
+  //
+  // Parameters:  None
+  //
+  // Returned:    None
+  //***************************************************************************
+  public FirstSetupFragment () {
     // Required empty public constructor
   }
 
+  //***************************************************************************
+  // Method:      onCreate
+  //
+  // Description: Runs when the fragment is created
+  //
+  // Parameters:  savedInstanceState - the current instance state
+  //
+  // Returned:    None
+  //***************************************************************************
   @Override
-  public void onCreate (Bundle savedInstanceState)
-  {
-    super.onCreate (savedInstanceState);
+  public void onCreate (Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
   }
 
+  //***************************************************************************
+  // Method:      onCreateView
+  //
+  // Description: Inflates the fragment's layout and initializes UI components
+  //
+  // Parameters:  inflater - layout inflater
+  //              container - parent view that the fragment's UI is attached to
+  //              savedInstanceState - saved instance state
+  //
+  // Returned:    View - the created fragment view
+  //***************************************************************************
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater,
-      @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+                           @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState) {
 
     View view = inflater.inflate(R.layout.fragment_first_setup, container, false);
 
@@ -63,28 +93,16 @@ public class FirstSetupFragment extends Fragment {
     tvContact = view.findViewById(R.id.phEContact1);
 
     mcDB = Room.databaseBuilder(requireContext(),
-        VetDatabase.class, "VET-DB").build();
+            VetDatabase.class, "VET-DB").build();
     mcDAO = mcDB.vetDAO();
-
-    Intent intent = new Intent(requireActivity(), ChangeStepOrder.class);
-    // need to change this to route to fragment
 
     new Thread(() -> {
       int userCount = mcDAO.getSize();
-
       requireActivity().runOnUiThread(() -> {
         if (userCount > 0) {
-          // Create an instance of DynamicPageFragment
-          DynamicPageFragment dynamicPageFragment = new DynamicPageFragment();
-
-          // Start a fragment transaction
           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-          // Optionally, add this fragment to the back stack
-          transaction.replace(R.id.fragment_container, dynamicPageFragment);
-          transaction.addToBackStack(null); // Add this fragment to the back stack if you want to allow back navigation
-
-          // Commit the transaction
+          transaction.replace(R.id.fragment_container, new DynamicPageFragment());
+          transaction.addToBackStack(null);
           transaction.commit();
         }
       });
@@ -96,44 +114,43 @@ public class FirstSetupFragment extends Fragment {
       Executors.newSingleThreadExecutor().execute(() -> {
         VetUser newUser = new VetUser(sBranch, eContact);
         mcDAO.insert(newUser);
-
-        // Switch to DynamicPageFragment after database insertion
         requireActivity().runOnUiThread(() -> {
           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0)); // starting at page 0
+          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0));
           transaction.commit();
         });
       });
-      // startActivity(intent);
     });
 
-    // initializing spinner
-    String[] choiceArray = new String[]{
-        "Army", "Marine Corps", "Navy", "Air Force",
-        "Coast Guard", "Grey Scale"
-    };
+    // Initialize spinner
+    String[] choiceArray = new String[]{"Army", "Marine Corps", "Navy", "Air Force", "Coast Guard", "Grey Scale"};
     ArrayAdapter<String> choiceAdapter = new ArrayAdapter<>(
-        requireContext(), android.R.layout.simple_spinner_dropdown_item, choiceArray);
+            requireContext(), android.R.layout.simple_spinner_dropdown_item, choiceArray);
     choiceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     mSpinChoice.setAdapter(choiceAdapter);
 
-    // spinner with branches
     mSpinChoice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String selectedBranch = (String) adapterView.getItemAtPosition(i);
-
         requireContext().getSharedPreferences("AppPreferences",
-                requireContext().MODE_PRIVATE)
-            .edit()
-            .putString("selectedBranch", selectedBranch)
-            .apply();
-
+                        requireContext().MODE_PRIVATE)
+                .edit()
+                .putString("selectedBranch", selectedBranch)
+                .apply();
         updateColorScheme(selectedBranch);
       }
 
+      //***************************************************************************
+      // Method:      updateColorScheme
+      //
+      // Description: Updates the app's color scheme based on the selected branch
+      //
+      // Parameters:  selectedBranch - the selected branch name
+      //
+      // Returned:    None
+      //***************************************************************************
       private void updateColorScheme(String selectedBranch) {
-        // change color scheme depending on choice of branch
         int[] colors;
         switch (selectedBranch) {
           case "Army":
@@ -160,8 +177,8 @@ public class FirstSetupFragment extends Fragment {
         }
 
         GradientDrawable gradientDrawable = new GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM,
-            colors
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                colors
         );
 
         requireActivity().getWindow().getDecorView().setBackground(gradientDrawable);
@@ -169,23 +186,9 @@ public class FirstSetupFragment extends Fragment {
 
       @Override
       public void onNothingSelected(AdapterView<?> adapterView) {
-        // First option by default
       }
     });
 
     return view;
-  }
-
-  @Override
-  public void onViewCreated (@NonNull View view,
-      @Nullable Bundle savedInstanceState)
-  {
-    super.onViewCreated (view, savedInstanceState);
-  }
-
-  @Override
-  public void onDestroyView ()
-  {
-    super.onDestroyView ();
   }
 }
