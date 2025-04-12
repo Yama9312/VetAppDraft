@@ -54,7 +54,30 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 2", Page.PageType.TEXT, "review reasons for living\nPhone a friend", ""));
         pages.add(new Page("step 3", Page.PageType.TEXT, "H.A.L.T", ""));
         pages.add(new Page("step 4", Page.PageType.TEXT, "2 minute mindful breathing", ""));
-        // Add more pages as needed...
+        pages.add(new Page("step 5", Page.PageType.TEXT, "safetySOP", ""));
+        pages.add(new Page("step 6", Page.PageType.TEXT, "body scan meditation", ""));
+        pages.add(new Page("step 7", Page.PageType.TEXT, "listen to music", ""));
+        pages.add(new Page("step 8", Page.PageType.TEXT, "call someone\nsee who is online", ""));
+        pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines", ""));
+        pages.add(new Page("step 10", Page.PageType.TEXT, "put weapons down", ""));
+        pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", ""));
+        pages.add(new Page("step 12", Page.PageType.TEXT, "leaves on a stream", ""));
+        pages.add(new Page("step 13", Page.PageType.TEXT, "identify values", ""));
+        pages.add(new Page("step 14", Page.PageType.TEXT, "mindful walking", ""));
+        pages.add(new Page("step 15", Page.PageType.TEXT, "progressive muscle\nrelaxation", ""));
+        pages.add(new Page("step 16", Page.PageType.TEXT, "distract yourself", ""));
+        pages.add(new Page("step 17", Page.PageType.TEXT, "awareness of thought", ""));
+        pages.add(new Page("step 18", Page.PageType.TEXT, "follow the circle", ""));
+        pages.add(new Page("step 19", Page.PageType.TEXT, "urge surfing", ""));
+        pages.add(new Page("step 20", Page.PageType.TEXT, "SOBER\n-Stop\n-observe\n-breath\n-expand\n-respond", ""));
+        pages.add(new Page("step 21", Page.PageType.TEXT, "four squared breathing", ""));
+        pages.add(new Page("step 22", Page.PageType.TEXT, "diaphragmatic breathing", ""));
+        pages.add(new Page("step 23", Page.PageType.TEXT, "5 senses", ""));
+        pages.add(new Page("step 24", Page.PageType.TEXT, "mountain meditation", ""));
+        pages.add(new Page("step 25", Page.PageType.TEXT, "distractions", ""));
+        pages.add(new Page("step 26", Page.PageType.TEXT, "whole body breathing", ""));
+        pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space", ""));
+        pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body", ""));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
