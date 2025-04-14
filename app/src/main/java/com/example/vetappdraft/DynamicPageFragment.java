@@ -1,3 +1,9 @@
+//***************************************************************************
+// File name:   DynamicPageFragment
+// Author:      Berglund Center Coding team
+// Date:        4/3/25
+// Purpose:     Create the page fragment for the app
+//***************************************************************************
 package com.example.vetappdraft;
 
 import android.os.Bundle;
@@ -21,6 +27,15 @@ public class DynamicPageFragment extends Fragment {
   private int mPageIndex;
   private static final String ARG_PAGE_INDEX = "page_index";
 
+  //***************************************************************************
+  // Method:      newInstance
+  //
+  // Description: Creates a new instance of a page fragment
+  //
+  // Parameters:  pageIndex - the index of the selected page
+  //
+  // Returned:    Fragment - new page fragment instance
+  //***************************************************************************
   public static Fragment newInstance(int pageIndex) {
     DynamicPageFragment fragment = new DynamicPageFragment();
     Bundle args = new Bundle();
@@ -29,6 +44,15 @@ public class DynamicPageFragment extends Fragment {
     return fragment;
   }
 
+  //***************************************************************************
+  // Method:      onCreate
+  //
+  // Description: Runs when the fragment is created
+  //
+  // Parameters:  savedInstanceState - the current instance state
+  //
+  // Returned:    None
+  //***************************************************************************
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -37,6 +61,17 @@ public class DynamicPageFragment extends Fragment {
     }
   }
 
+  //***************************************************************************
+  // Method:      onCreateView
+  //
+  // Description: Runs to create and set up the fragment's UI
+  //
+  // Parameters:  inflater - layout inflater
+  //              container - parent view that the fragment's UI is attached to
+  //              savedInstanceState - saved instance state
+  //
+  // Returned:    View - the created fragment view
+  //***************************************************************************
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +85,16 @@ public class DynamicPageFragment extends Fragment {
     return view;
   }
 
+  //***************************************************************************
+  // Method:      onViewCreated
+  //
+  // Description: Runs after the view has been created to initialize content
+  //
+  // Parameters:  view - the fragment's root view
+  //              savedInstanceState - saved instance state
+  //
+  // Returned:    None
+  //***************************************************************************
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -73,7 +118,7 @@ public class DynamicPageFragment extends Fragment {
         mContentTextView.setText("Link Here: " + mPage.getContent());
         break;
       case IMAGE:
-        //Implement image logic.
+        // Implement image logic.
         mContentTextView.setText("Image here");
         break;
     }
@@ -87,10 +132,19 @@ public class DynamicPageFragment extends Fragment {
     mNextButton.setEnabled(mPageIndex < ((MainActivity) requireActivity()).getPages().size() - 1);
   }
 
+  //***************************************************************************
+  // Method:      navigate
+  //
+  // Description: Navigates to the previous or next page
+  //
+  // Parameters:  direction - integer representing direction (-1 for previous, 1 for next)
+  //
+  // Returned:    None
+  //***************************************************************************
   private void navigate(int direction) {
     mPageIndex += direction;
     requireActivity().getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, DynamicPageFragment.newInstance(mPageIndex))
-        .commit();
+            .replace(R.id.fragment_container, DynamicPageFragment.newInstance(mPageIndex))
+            .commit();
   }
 }
