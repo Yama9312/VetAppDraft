@@ -30,13 +30,15 @@ import androidx.fragment.app.FragmentTransaction;
 import java.net.URLEncoder;
 import java.util.Vector;
 import java.util.concurrent.Executors;
+import java.util.LinkedList;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MainActivity extends BaseActivity {
 
-    private Vector<Page> pages = new Vector<>();
+    private LinkedList<Page> pages = new LinkedList<>();
 
     /**
      * Retrieves the list of pages in the app.
