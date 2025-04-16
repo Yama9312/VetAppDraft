@@ -8,12 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class StepAdapter extends
-        RecyclerView.Adapter<StepAdapter.ViewHolder>
-{
-    private ArrayList<Page> mcData;
+public class StepAdapter extends RecyclerView.Adapter<StepAdapter.ViewHolder> {
+    private LinkedList<Page> mcData;
 
     /***************************************************************************
      * Constructor: StepAdapter
@@ -24,7 +22,7 @@ public class StepAdapter extends
      *
      * Returned: None
      **************************************************************************/
-    public StepAdapter(ArrayList<Page> data) {
+    public StepAdapter(LinkedList<Page> data) {
         this.mcData = data;
     }
 
@@ -40,9 +38,8 @@ public class StepAdapter extends
      **************************************************************************/
     @NonNull
     @Override
-    public StepAdapter.ViewHolder onCreateViewHolder (
-            @NonNull ViewGroup parent, int viewType)
-    {
+    public StepAdapter.ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.display_step, parent, false);
         ViewHolder holder = new ViewHolder(view);
@@ -55,14 +52,13 @@ public class StepAdapter extends
      * Description: Binds the data to the screen at the given position.
      *
      * Parameters: holder - the ViewHolder instance
-     *             position - the position in the array list to be displayed
+     *             position - the position in the list to be displayed
      *
      * Returned: None
      **************************************************************************/
     @Override
-    public void onBindViewHolder (
-            @NonNull StepAdapter.ViewHolder holder, int position)
-    {
+    public void onBindViewHolder(
+            @NonNull StepAdapter.ViewHolder holder, int position) {
         holder.mcCourse = mcData.get(position);
         holder.bindData();
     }
@@ -77,8 +73,7 @@ public class StepAdapter extends
      * Returned: int - the number of items
      **************************************************************************/
     @Override
-    public int getItemCount ()
-    {
+    public int getItemCount() {
         return mcData.size();
     }
 
@@ -88,8 +83,7 @@ public class StepAdapter extends
      * Description: Represents the piece of XML on the screen and assigns
      *              course data to each widget.
      **************************************************************************/
-    public class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private Page mcCourse;
         private TextView mcTVPageInfo;
 
@@ -117,7 +111,7 @@ public class StepAdapter extends
          **************************************************************************/
         public void bindData() {
             if (null == mcTVPageInfo) {
-                mcTVPageInfo = (TextView) itemView.findViewById(R.id.tvStep);
+                mcTVPageInfo = itemView.findViewById(R.id.tvStep);
             }
             mcTVPageInfo.setText(mcCourse.getInstructions());
         }
