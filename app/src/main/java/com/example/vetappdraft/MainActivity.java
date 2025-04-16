@@ -42,9 +42,9 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Retrieves the list of pages in the app.
-     * @return A vector containing the pages.
+     * @return A linkedlist containing the pages.
      */
-    public Vector<Page> getPages(){
+    public LinkedList<Page> getPages(){
         return pages;
     }
 
