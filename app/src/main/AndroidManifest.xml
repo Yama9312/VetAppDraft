@@ -57,7 +57,7 @@
             android:name=".step2"
             android:exported="false" />
         <activity
-            android:name=".changeSteps"
+            android:name=".ChangeStepOrder"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
