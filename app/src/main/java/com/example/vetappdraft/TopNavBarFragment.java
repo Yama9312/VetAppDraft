@@ -55,10 +55,20 @@ public class TopNavBarFragment extends Fragment {
 
     ImageButton btnSettings =  view.findViewById(R.id.settingsButton);
     btnSettings.setOnClickListener(v -> {
-      FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-      transaction.replace(R.id.fragment_container, new SettingsFragment());
-      transaction.addToBackStack(null);
-      transaction.commit();
+      Fragment currentFragment = requireActivity()
+          .getSupportFragmentManager()
+          .findFragmentById(R.id.fragment_container);
+
+      if (currentFragment instanceof SettingsFragment) {
+        requireActivity().getSupportFragmentManager().popBackStack();
+      } else {
+        FragmentTransaction transaction = requireActivity()
+            .getSupportFragmentManager()
+            .beginTransaction();
+        transaction.replace(R.id.fragment_container, new SettingsFragment());
+        transaction.addToBackStack("SettingsFragment");
+        transaction.commit();
+      }
     });
 
     // Optional code for handling other buttons (commented out)
