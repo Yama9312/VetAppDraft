@@ -6,6 +6,7 @@
 //***************************************************************************
 package com.example.vetappdraft;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -79,6 +80,7 @@ public class FirstSetupFragment extends Fragment {
   //
   // Returned:    View - the created fragment view
   //***************************************************************************
+  @SuppressLint("MissingInflatedId")
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater,
