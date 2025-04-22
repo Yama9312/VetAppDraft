@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 
 public class TopNavBarFragment extends Fragment {
 
+  private ImageButton btnSettings;
+  private ImageButton btnEmergency;
+
   //***************************************************************************
   // Method:      TopNavBarFragment
   //
@@ -53,7 +56,8 @@ public class TopNavBarFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    ImageButton btnSettings =  view.findViewById(R.id.settingsButton);
+    btnSettings =  view.findViewById(R.id.settingsButton);
+
     btnSettings.setOnClickListener(v -> {
       Fragment currentFragment = requireActivity()
           .getSupportFragmentManager()
@@ -71,13 +75,26 @@ public class TopNavBarFragment extends Fragment {
       }
     });
 
-    // Optional code for handling other buttons (commented out)
-    // view.findViewById(R.id.someButton).setOnClickListener(v -> {
-    //   Fragment newFragment = new SomeOtherFragment();
-    //   if (getActivity() instanceof MainActivity) {
-    //     ((MainActivity) getActivity()).loadContentFragment(newFragment);
-    //   }
-    // });
+
+    btnEmergency =  view.findViewById(R.id.emergencyButton);
+
+    btnEmergency.setOnClickListener(v -> {
+      Fragment currentFragment = requireActivity()
+          .getSupportFragmentManager()
+          .findFragmentById(R.id.fragment_container);
+
+      if (currentFragment instanceof EmergencyFragment) {
+        requireActivity().getSupportFragmentManager().popBackStack();
+      } else {
+        FragmentTransaction transaction = requireActivity()
+            .getSupportFragmentManager()
+            .beginTransaction();
+        transaction.replace(R.id.fragment_container, new EmergencyFragment());
+        transaction.addToBackStack("EmergencyFragment");
+        transaction.commit();
+      }
+    });
+
   }
 
   //***************************************************************************
