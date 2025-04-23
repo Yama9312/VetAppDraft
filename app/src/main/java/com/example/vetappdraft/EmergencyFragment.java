@@ -11,11 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * EmergencyFragment displays emergency contacts like 911 etc
  *
+ * there's more to add to this fragments - mostly just textviews
+ * @author ania
  */
 
 public class EmergencyFragment extends Fragment
 {
+  /**
+   * Inflates the layout for the EmergencyFragment.
+   *
+   * @param inflater           LayoutInflater to inflate views in fragment
+   * @param container          Parent view to attach fragment UI to
+   * @param savedInstanceState Previous state, if any, of the fragment
+   * @return                   The root view of the inflated layout
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,6 +34,12 @@ public class EmergencyFragment extends Fragment
     return view;
   }
 
+  /**
+   * Called immediately after onCreateView has returned.
+   *
+   * @param view               The view returned by onCreateView
+   * @param savedInstanceState Previous state, if any, of the fragment
+   */
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
