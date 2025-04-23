@@ -16,9 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ChangeStepOrder extends BaseActivity {
-    public ArrayList<Page> theSteps;
+    public LinkedList<Page> theSteps;
     private RecyclerView recyclerView;
 
     private StepAdapter mcAdapter;
@@ -33,7 +34,7 @@ public class ChangeStepOrder extends BaseActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        theSteps = new ArrayList<Page> ();
+        theSteps = new LinkedList<Page> ();
         theSteps.add(new Page("Step1", Page.PageType.TEXT, "take a deep breath", ""));
 
         RecyclerView rvOrder = findViewById(R.id.rvStepOrder);
