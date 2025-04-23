@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 /**
+ * SettingsFragment provides navigation to various settings screens within the app.
  *
+ * @author ania
  */
 
 public class SettingsFragment extends Fragment {
@@ -21,12 +23,20 @@ public class SettingsFragment extends Fragment {
     private Button appearanceButton;
     private Button skillToolboxButton;
 
+    /**
+     * Inflates the settings layout and initializes button views.
+     *
+     * @param inflater           LayoutInflater to inflate views in fragment
+     * @param container          Parent view to attach fragment UI to
+     * @param savedInstanceState Previous state, if any, of the fragment
+     * @return                   The root view of the inflated layout
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-//        changeOrderButton = view.findViewById(R.id.changeOrderButton);
+        changeOrderButton = view.findViewById(R.id.changeOrderButton);
 //        emergencyContactsButton = view.findViewById(R.id.emergencyContactsButton);
 //        appearanceButton = view.findViewById(R.id.appearanceButton);
 //        skillToolboxButton = view.findViewById(R.id.skillToolboxButton);
@@ -34,19 +44,26 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sets click listeners for navigation buttons after the view has been created.
+     *
+     * @param view               The view returned by onCreateView
+     * @param savedInstanceState Previous state, if any, of the fragment
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        changeOrderButton.setOnClickListener(v -> {
-//            // Navigate to Change Order of Steps Fragment
-//            // Replace with your actual fragment
-//            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container, new ChangeStepOrder()); //ChangeStepOrder is a placeholder.
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//        });
-//
+        changeOrderButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction();
+
+            transaction.replace(R.id.fragment_container, new ChangeStepOrderFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
 //        emergencyContactsButton.setOnClickListener(v -> {
 //            // Navigate to Emergency Contacts Fragment
 //            // Replace with your actual fragment

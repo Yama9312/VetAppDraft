@@ -27,7 +27,7 @@
             android:name=".step9"
             android:exported="false" />
         <activity
-            android:name=".ChangeStepOrder"
+            android:name=".ChangeStepOrderFragment"
             android:exported="false" />
         <activity
             android:name=".generalStep"
