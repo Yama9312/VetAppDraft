@@ -24,9 +24,7 @@ import java.util.LinkedList;
  *
  * @author ania
  */
-
-public class ChangeStepOrderFragment extends Fragment
-{
+public class ChangeStepOrderFragment extends Fragment {
     private Button mBtnApply;
     private ImageButton mBtnGoBack;
 
@@ -34,23 +32,16 @@ public class ChangeStepOrderFragment extends Fragment
     private RecyclerView rvOrder;
     private StepAdapter mcAdapter;
 
-    /**
-     * Inflates the ChangeStepOrderFragment layout and sets up UI elements.
-     *
-     * @param inflater Used to inflate the layout XML.
-     * @param container Optional parent view for the fragment's UI.
-     * @param savedInstanceState Saved state, if any.
-     * @return The root view of the inflated layout.
-     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-        @Nullable ViewGroup container,
-        @Nullable Bundle savedInstanceState) {
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_change_step_order, container, false);
 
         mBtnGoBack = view.findViewById(R.id.imBtnGoBack);
+        rvOrder = view.findViewById(R.id.rvOrder);  // Ensure your layout has this ID
 
         // back button click implementation (return to the previous fragment)
         mBtnGoBack.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +53,35 @@ public class ChangeStepOrderFragment extends Fragment
 
         theSteps = new LinkedList<>();
         theSteps.add(new Page("Step1", Page.PageType.TEXT, "take a deep breath", ""));
+        theSteps.add(new Page("Step2", Page.PageType.TEXT, "open the package", ""));
+        theSteps.add(new Page("Step3", Page.PageType.TEXT, "do the procedure", ""));
 
-        // Adapter initialization (idk bro this was here so i left it)
-        // mcAdapter = new StepAdapter(theSteps);
-        // rvOrder.setAdapter(mcAdapter);
+        rvOrder.setLayoutManager(new LinearLayoutManager(getContext()));
+        mcAdapter = new StepAdapter(theSteps);
+        rvOrder.setAdapter(mcAdapter);
+
+        // Drag-and-drop support
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                Collections.swap(theSteps, fromPosition, toPosition);
+                mcAdapter.notifyItemMoved(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                //unsure
+            }
+        });
+
+        itemTouchHelper.attachToRecyclerView(rvOrder);
 
         return view;
     }

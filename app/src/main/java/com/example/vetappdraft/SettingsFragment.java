@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import android.util.Log;
 
 /**
  * SettingsFragment provides navigation to various settings screens within the app.
@@ -54,10 +55,13 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //how we get to change order
         changeOrderButton.setOnClickListener(v -> {
             FragmentTransaction transaction = requireActivity()
                 .getSupportFragmentManager()
                 .beginTransaction();
+
+            Log.d("ButtonClick", "Went in here");
 
             transaction.replace(R.id.fragment_container, new ChangeStepOrderFragment());
             transaction.addToBackStack(null);
