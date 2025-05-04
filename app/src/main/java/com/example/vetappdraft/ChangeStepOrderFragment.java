@@ -9,29 +9,31 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-/**
- * Fragment to handle changing the order of steps.
- * Converted from previous BaseActivity implementation.
- *
- * @author ania
- */
 public class ChangeStepOrderFragment extends Fragment {
+
     private Button mBtnApply;
     private ImageButton mBtnGoBack;
-
-    private LinkedList<Page> theSteps;
     private RecyclerView rvOrder;
-    private StepAdapter mcAdapter;
+    private StringAdapter mcAdapter;
+    private List<String> theSteps;
 
+    /**
+     * Inflates the ChangeStepOrderFragment layout and sets up UI elements.
+     *
+     * @param inflater Used to inflate the layout XML.
+     * @param container Optional parent view for the fragment's UI.
+     * @param savedInstanceState Saved state, if any.
+     * @return The root view of the inflated layout.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,47 +43,47 @@ public class ChangeStepOrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_change_step_order, container, false);
 
         mBtnGoBack = view.findViewById(R.id.imBtnGoBack);
-        rvOrder = view.findViewById(R.id.rvOrder);  // Ensure your layout has this ID
+        mBtnGoBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
-        // back button click implementation (return to the previous fragment)
-        mBtnGoBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
 
-        theSteps = new LinkedList<>();
-        theSteps.add(new Page("Step1", Page.PageType.TEXT, "take a deep breath", ""));
-        theSteps.add(new Page("Step2", Page.PageType.TEXT, "open the package", ""));
-        theSteps.add(new Page("Step3", Page.PageType.TEXT, "do the procedure", ""));
+        theSteps = new ArrayList<>();
+        theSteps.add("Step 1: Take a deep breath");
+        theSteps.add("Step 2: Relax");
+        theSteps.add("Step 3: Breathe deeply");
+        theSteps.add("Step 4: Focus");
 
-        rvOrder.setLayoutManager(new LinearLayoutManager(getContext()));
-        mcAdapter = new StepAdapter(theSteps);
+        rvOrder = view.findViewById(R.id.recyclerView);
+        rvOrder.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mcAdapter = new StringAdapter(theSteps);
         rvOrder.setAdapter(mcAdapter);
 
-        // Drag-and-drop support
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN,
+                0) {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
+
+
                 Collections.swap(theSteps, fromPosition, toPosition);
+
+
                 mcAdapter.notifyItemMoved(fromPosition, toPosition);
                 return true;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                //unsure
+
             }
         });
 
         itemTouchHelper.attachToRecyclerView(rvOrder);
+
 
         return view;
     }
