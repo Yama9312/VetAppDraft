@@ -1,6 +1,7 @@
 package com.example.vetappdraft;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,12 @@ public class ChangeStepOrderFragment extends Fragment {
         mBtnGoBack = view.findViewById(R.id.imBtnGoBack);
         mBtnGoBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
+        mBtnApply = view.findViewById(R.id.btnApply);
+        mBtnApply.setOnClickListener(v -> {
+            for (String step : theSteps) {
+                Log.d("StepOrder", step);
+            }
+        });
 
         theSteps = new ArrayList<>();
         theSteps.add("Step 1: Take a deep breath");
@@ -45,37 +52,43 @@ public class ChangeStepOrderFragment extends Fragment {
         theSteps.add("Step 4: Focus");
 
         rvOrder = view.findViewById(R.id.recyclerView);
-        rvOrder.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        rvOrder.setLayoutManager(layoutManager);
 
         mcAdapter = new StringAdapter(theSteps);
         rvOrder.setAdapter(mcAdapter);
 
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                0) {
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, 0) {
+
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
 
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
 
+                Log.d("ItemTouchHelper", "Moving from " + fromPosition + " to " + toPosition);
 
                 Collections.swap(theSteps, fromPosition, toPosition);
-
-
                 mcAdapter.notifyItemMoved(fromPosition, toPosition);
                 return true;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                //nothing
+            }
 
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return true;
             }
         });
 
         itemTouchHelper.attachToRecyclerView(rvOrder);
-
 
         return view;
     }
