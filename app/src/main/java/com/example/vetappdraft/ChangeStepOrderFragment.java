@@ -26,14 +26,6 @@ public class ChangeStepOrderFragment extends Fragment {
     private StringAdapter mcAdapter;
     private List<String> theSteps;
 
-    /**
-     * Inflates the ChangeStepOrderFragment layout and sets up UI elements.
-     *
-     * @param inflater Used to inflate the layout XML.
-     * @param container Optional parent view for the fragment's UI.
-     * @param savedInstanceState Saved state, if any.
-     * @return The root view of the inflated layout.
-     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
