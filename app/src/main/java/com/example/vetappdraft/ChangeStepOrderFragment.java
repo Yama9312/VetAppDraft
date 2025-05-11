@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,16 +25,34 @@ public class ChangeStepOrderFragment extends Fragment {
     private Spinner[] spinners = new Spinner[10];
 
     private final List<String> stepOptions = Arrays.asList(
-            "Step 1: Take a deep breath",
-            "Step 2: Relax",
-            "Step 3: Breathe deeply",
-            "Step 4: Focus",
-            "Step 5: Hydrate",
-            "Step 6: Stretch",
-            "Step 7: Meditate",
-            "Step 8: Visualize success",
-            "Step 9: Commit",
-            "Step 10: Act"
+            "Take a deep breath",
+            "Review reasons for living - Phone a friend",
+            "H.A.L.T",
+            "2 minute mindful breathing",
+            "SafetySOP",
+            "Body scan meditation",
+            "Listen to music",
+            "Call someone - See who is online",
+            "Call hotlines",
+            "Put weapons down",
+            "Observe & describe",
+            "Leaves on a stream",
+            "Identify values",
+            "Mindful walking",
+            "Progressive muscle relaxation",
+            "Distract yourself",
+            "Awareness of thought",
+            "Follow the circle",
+            "Urge surfing",
+            "SOBER - Stop - Observe - Breathe - Expand - Respond",
+            "Four squared breathing",
+            "Diaphragmatic breathing",
+            "5 senses",
+            "Mountain meditation",
+            "Distractions",
+            "Whole body breathing",
+            "Breathing space",
+            "Breathing body"
     );
 
     @Nullable
@@ -49,13 +68,16 @@ public class ChangeStepOrderFragment extends Fragment {
 
         mBtnApply = view.findViewById(R.id.btnApply);
         mBtnApply.setOnClickListener(v -> {
-
-            for (int i = 0; i < spinners.length; i++) {
-                String selected = (String) spinners[i].getSelectedItem();
-
+            List<String> selectedSteps = new ArrayList<>();
+            for (Spinner spinner : spinners) {
+                String selected = (String) spinner.getSelectedItem();
+                selectedSteps.add(selected);
             }
-        });
 
+            //handleStepOrder(selectedSteps); where I update the order step
+
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
 
         for (int i = 0; i < spinners.length; i++) {
             int resId = getResources().getIdentifier("spinner" + (i + 1), "id", requireContext().getPackageName());
@@ -67,4 +89,10 @@ public class ChangeStepOrderFragment extends Fragment {
 
         return view;
     }
+
+    /*
+    private void handleStepOrder(List<String> selectedSteps) {
+
+    }
+     */
 }
