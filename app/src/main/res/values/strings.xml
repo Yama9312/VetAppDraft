@@ -25,5 +25,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="changeOrderOfSteps">Change the Order of Steps</string>
     <string name="applyChangesBtn">Apply Changes</string>
+    <string name="go_back">Go back</string>
 
 </resources>
