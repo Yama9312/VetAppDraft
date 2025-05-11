@@ -26,5 +26,15 @@
     <string name="changeOrderOfSteps">Change the Order of Steps</string>
     <string name="applyChangesBtn">Apply Changes</string>
     <string name="go_back">Go back</string>
+    <string name="step1">Step 1:</string>
+    <string name="step2">Step 2:</string>
+    <string name="step3">Step 3:</string>
+    <string name="step4">Step 4:</string>
+    <string name="step5">Step 5:</string>
+    <string name="step6">Step 6:</string>
+    <string name="step7">Step 7:</string>
+    <string name="step8">Step 8:</string>
+    <string name="step9">Step 9:</string>
+    <string name="step10">Step 10:</string>
 
 </resources>
