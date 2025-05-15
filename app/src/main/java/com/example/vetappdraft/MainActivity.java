@@ -40,14 +40,15 @@ public class MainActivity extends BaseActivity {
 
         // Add predefined pages
         pages.add(new Page("step 1", Page.PageType.TEXT, "take a deep breath", ""));
-        pages.add(new Page("step 2", Page.PageType.TEXT, "review reasons for living\nPhone a friend", ""));
+        pages.add(new Page("step 2", Page.PageType.TEXT,
+            "review reasons for living\nPhone a friend", "", -999, true));
         pages.add(new Page("step 3", Page.PageType.TEXT, "H.A.L.T\n\nAm I...\n\n Hungry      Angry?\n\nLonely?      Tired?", ""));
         pages.add(new Page("step 4", Page.PageType.TEXT, "2 minute mindful breathing", "", R.raw.two_minutes_of_mindful_breathing_vf));
         pages.add(new Page("step 5", Page.PageType.TEXT, "safetySOP", ""));
         pages.add(new Page("step 6", Page.PageType.TEXT, "body scan meditation", "", R.raw.body_scan_v2));
         pages.add(new Page("step 7", Page.PageType.TEXT, "listen to music", ""));
-        pages.add(new Page("step 8", Page.PageType.TEXT, "call someone\nsee who is online", ""));
-        pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines", ""));
+        pages.add(new Page("step 8", Page.PageType.TEXT, "call someone\nsee who is online", "", -999, true));
+        pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines", "", -999, true));
         pages.add(new Page("step 10", Page.PageType.TEXT, "put weapons down", ""));
         /*
         pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", "", R.raw.observe_and_describe_vf));
@@ -68,8 +69,8 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 26", Page.PageType.TEXT, "whole body breathing", "", R.raw.whole_body_breathing_meditation_vf));
         pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space", "", R.raw.breathing_space_vf));
         pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body", "", R.raw.breathing_body_vf));
-
         */
+
         // Add NavigationBarFragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
