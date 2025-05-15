@@ -7,7 +7,10 @@
 
 package com.example.vetappdraft;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +19,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import android.Manifest;
 
 public class DynamicPageFragment extends Fragment {
+
+  private static final int REQUEST_CALL_PERMISSION = 1001;
 
   private Page mPage;
   private TextView mTitleTextView;
@@ -26,6 +34,7 @@ public class DynamicPageFragment extends Fragment {
   private Button mPreviousButton;
   private Button mNextButton;
   private Button mPlayButton;
+  private Button mCallButton;
   private MediaPlayer mMediaPlayer;
 
   private int mPageIndex;
@@ -57,6 +66,7 @@ public class DynamicPageFragment extends Fragment {
     mPreviousButton = view.findViewById(R.id.previousButton);
     mNextButton = view.findViewById(R.id.nextButton);
     mPlayButton = view.findViewById(R.id.playButton);
+    mCallButton = view.findViewById(R.id.callButton);
 
     return view;
   }
@@ -87,6 +97,25 @@ public class DynamicPageFragment extends Fragment {
       });
     } else {
       mPlayButton.setVisibility(View.GONE);
+    }
+
+    // show call button only when intend to call
+    if (mPage.getCallFlag ()) {
+      mCallButton.setVisibility (View.VISIBLE);
+      mPlayButton.setOnClickListener(v -> {
+        Intent callIntent = new Intent (Intent.ACTION_DIAL);
+
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
+            != PackageManager.PERMISSION_GRANTED) {
+          ActivityCompat.requestPermissions(requireActivity(),
+              new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+        } else {
+          callIntent.setData (Uri.parse ("tel:1234567890"));
+          startActivity(callIntent);
+        }
+      });
+    } else {
+      mCallButton.setVisibility (View.GONE);
     }
 
     // Navigation buttons

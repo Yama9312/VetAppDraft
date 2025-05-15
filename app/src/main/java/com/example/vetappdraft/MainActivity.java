@@ -32,33 +32,52 @@ public class MainActivity extends BaseActivity {
 
         // Add predefined pages
         pages.add(new Page("step 1", Page.PageType.TEXT, "take a deep breath", ""));
-        pages.add(new Page("step 2", Page.PageType.TEXT, "review reasons for living\nPhone a friend", ""));
+        pages.add(new Page("step 2", Page.PageType.TEXT,
+            "review reasons for living\nPhone a friend", "", -999, true));
         pages.add(new Page("step 3", Page.PageType.TEXT, "H.A.L.T", ""));
-        pages.add(new Page("step 4", Page.PageType.TEXT, "2 minute mindful breathing", "", R.raw.two_minutes_of_mindful_breathing_vf));
+        pages.add(new Page("step 4", Page.PageType.TEXT, "2 minute mindful breathing", "",
+            R.raw.two_minutes_of_mindful_breathing_vf));
         pages.add(new Page("step 5", Page.PageType.TEXT, "safetySOP", ""));
-        pages.add(new Page("step 6", Page.PageType.TEXT, "body scan meditation", "", R.raw.body_scan_v2));
+        pages.add(new Page("step 6", Page.PageType.TEXT, "body scan meditation",
+            "", R.raw.body_scan_v2));
         pages.add(new Page("step 7", Page.PageType.TEXT, "listen to music", ""));
-        pages.add(new Page("step 8", Page.PageType.TEXT, "call someone\nsee who is online", ""));
-        pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines", ""));
+        pages.add(new Page("step 8", Page.PageType.TEXT,  "call someone\nsee who is online",
+            "", -999, true));
+        pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines",
+            "", -999, true));
         pages.add(new Page("step 10", Page.PageType.TEXT, "put weapons down", ""));
-        pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", "", R.raw.observe_and_describe_vf));
-        pages.add(new Page("step 12", Page.PageType.TEXT, "leaves on a stream", "", R.raw.leaves_on_a_stream_vf));
+        pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", "",
+            R.raw.observe_and_describe_vf));
+        pages.add(new Page("step 12", Page.PageType.TEXT, "leaves on a stream", "",
+            R.raw.leaves_on_a_stream_vf));
         pages.add(new Page("step 13", Page.PageType.TEXT, "identify values", ""));
-        pages.add(new Page("step 14", Page.PageType.TEXT, "mindful walking", "", R.raw.mindful_walking_vf));
-        pages.add(new Page("step 15", Page.PageType.TEXT, "progressive muscle\nrelaxation", "", R.raw.progressive_muscle_relaxing_vf));
+        pages.add(new Page("step 14", Page.PageType.TEXT, "mindful walking", "",
+            R.raw.mindful_walking_vf));
+        pages.add(new Page("step 15", Page.PageType.TEXT, "progressive muscle\nrelaxation",
+            "", R.raw.progressive_muscle_relaxing_vf));
         pages.add(new Page("step 16", Page.PageType.TEXT, "distract yourself", ""));
-        pages.add(new Page("step 17", Page.PageType.TEXT, "awareness of thought", "", R.raw.awareness_of_thoughts_vf));
+        pages.add(new Page("step 17", Page.PageType.TEXT, "awareness of thought",
+            "", R.raw.awareness_of_thoughts_vf));
         pages.add(new Page("step 18", Page.PageType.TEXT, "follow the circle", ""));
-        pages.add(new Page("step 19", Page.PageType.TEXT, "urge surfing", "", R.raw.urge_surfing_vf));
-        pages.add(new Page("step 20", Page.PageType.TEXT, "SOBER\n-Stop\n-observe\n-breath\n-expand\n-respond", ""));
-        pages.add(new Page("step 21", Page.PageType.TEXT, "four squared breathing", "", R.raw.four_square_breathing_vf));
-        pages.add(new Page("step 22", Page.PageType.TEXT, "diaphragmatic breathing", "", R.raw.diagramic_breathing_vf));
-        pages.add(new Page("step 23", Page.PageType.TEXT, "5 senses", "", R.raw.five_senses_vf));
-        pages.add(new Page("step 24", Page.PageType.TEXT, "mountain meditation", "", R.raw.mountian_meditation_vf));
+        pages.add(new Page("step 19", Page.PageType.TEXT, "urge surfing",
+            "", R.raw.urge_surfing_vf));
+        pages.add(new Page("step 20", Page.PageType.TEXT,
+            "SOBER\n-Stop\n-observe\n-breath\n-expand\n-respond", ""));
+        pages.add(new Page("step 21", Page.PageType.TEXT, "four squared breathing",
+            "", R.raw.four_square_breathing_vf));
+        pages.add(new Page("step 22", Page.PageType.TEXT, "diaphragmatic breathing", "",
+            R.raw.diagramic_breathing_vf));
+        pages.add(new Page("step 23", Page.PageType.TEXT, "5 senses",
+            "", R.raw.five_senses_vf));
+        pages.add(new Page("step 24", Page.PageType.TEXT, "mountain meditation",
+            "", R.raw.mountian_meditation_vf));
         pages.add(new Page("step 25", Page.PageType.TEXT, "distractions", ""));
-        pages.add(new Page("step 26", Page.PageType.TEXT, "whole body breathing", "", R.raw.whole_body_breathing_meditation_vf));
-        pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space", "", R.raw.breathing_space_vf));
-        pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body", "", R.raw.breathing_body_vf));
+        pages.add(new Page("step 26", Page.PageType.TEXT, "whole body breathing",
+            "", R.raw.whole_body_breathing_meditation_vf));
+        pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space",
+            "", R.raw.breathing_space_vf));
+        pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body",
+            "", R.raw.breathing_body_vf));
 
 
         // Add NavigationBarFragment
