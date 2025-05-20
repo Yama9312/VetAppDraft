@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity {
         // Add predefined pages
         pages.add(new Page("step 1", Page.PageType.TEXT, "take a deep breath", ""));
         pages.add(new Page("step 2", Page.PageType.TEXT, "review reasons for living\nPhone a friend", ""));
-        pages.add(new Page("step 3", Page.PageType.TEXT, "H.A.L.T", ""));
+        pages.add(new Page("step 3", Page.PageType.TEXT, "H.A.L.T\n\nAm I...\n\n Hungry      Angry?\n\nLonely?      Tired?", ""));
         pages.add(new Page("step 4", Page.PageType.TEXT, "2 minute mindful breathing", "", R.raw.two_minutes_of_mindful_breathing_vf));
         pages.add(new Page("step 5", Page.PageType.TEXT, "safetySOP", ""));
         pages.add(new Page("step 6", Page.PageType.TEXT, "body scan meditation", "", R.raw.body_scan_v2));
