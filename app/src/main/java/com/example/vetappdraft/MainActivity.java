@@ -14,11 +14,19 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Retrieves the list of pages in the app.
-
      * @return A linkedlist containing the pages.
      */
     public LinkedList<Page> getPages(){
         return pages;
+    }
+
+    /**
+     * Updates the list of pages with a new ordered list.
+     * @param newPages The new list of pages selected by the user.
+     */
+    public void updatePages(LinkedList<Page> newPages) {
+        pages.clear();
+        pages.addAll(newPages);
     }
 
     /**
@@ -59,7 +67,6 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 26", Page.PageType.TEXT, "whole body breathing", "", R.raw.whole_body_breathing_meditation_vf));
         pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space", "", R.raw.breathing_space_vf));
         pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body", "", R.raw.breathing_body_vf));
-
 
         // Add NavigationBarFragment
         FragmentManager fragmentManager = getSupportFragmentManager();

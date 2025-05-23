@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,14 +16,15 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ChangeStepOrderFragment extends Fragment {
 
-    private Button mBtnApply;
-    private ImageButton mBtnGoBack;
-
-    private Spinner[] spinners = new Spinner[10];
+    private View rootView;
+    private List<Spinner> spinners = new ArrayList<>();
+    private List<TextView> stepLabels = new ArrayList<>();
+    private LinkedList<Page> pages = new LinkedList<>();
 
     private final List<String> stepOptions = Arrays.asList(
             "Take a deep breath",
@@ -57,42 +59,82 @@ public class ChangeStepOrderFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_change_step_order, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_change_step_order, container, false);
+        //buttons
+        ImageButton btnGoBack = rootView.findViewById(R.id.imBtnGoBack);
+        Button btnApply = rootView.findViewById(R.id.btnApply);
 
-        mBtnGoBack = view.findViewById(R.id.imBtnGoBack);
-        mBtnGoBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
-
-        mBtnApply = view.findViewById(R.id.btnApply);
-        mBtnApply.setOnClickListener(v -> {
-            List<String> selectedSteps = new ArrayList<>();
-            for (Spinner spinner : spinners) {
-                String selected = (String) spinner.getSelectedItem();
-                selectedSteps.add(selected);
+        //button listeners
+        btnGoBack.setOnClickListener(v -> exitFragment());
+        btnApply.setOnClickListener(v -> {
+            buildPagesFromSpinners();
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).updatePages(pages);
             }
-
-            //handleStepOrder(selectedSteps); where I update the order step
-
-            requireActivity().getSupportFragmentManager().popBackStack();
+            exitFragment();
         });
 
-        for (int i = 0; i < spinners.length; i++) {
-            int resId = getResources().getIdentifier("spinner" + (i + 1), "id", requireContext().getPackageName());
-            spinners[i] = view.findViewById(resId);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stepOptions);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinners[i].setAdapter(adapter);
+        //spinner and label id's
+        for (int i = 1; i <= 10; i++) {
+            int spinnerId = getResources().getIdentifier("spinner" + i, "id", requireContext().getPackageName());
+            int labelId = getResources().getIdentifier("step" + i, "id", requireContext().getPackageName());
+            spinners.add(rootView.findViewById(spinnerId));
+            stepLabels.add(rootView.findViewById(labelId));
         }
 
-        return view;
+        //setup the spinners
+        setupSpinners();
+
+        return rootView;
     }
 
-    /*
-    private void handleStepOrder(List<String> selectedSteps) {
+    private void setupSpinners() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_item, stepOptions);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        for (Spinner spinner : spinners) {
+            spinner.setAdapter(adapter);
+        }
     }
-     */
+
+    private void createPageFromSpinnerSelection(Spinner spinner) {
+        String spinnerIdString = getResources().getResourceEntryName(spinner.getId());
+        String stepLabel = spinnerIdToStepLabel(spinnerIdString);
+        String selectedText = spinner.getSelectedItem().toString();
+        Page newPage = new Page(stepLabel, Page.PageType.TEXT, selectedText, "");
+        pages.add(newPage);
+    }
+
+    private void buildPagesFromSpinners() {
+        pages.clear();
+        for (Spinner spinner : spinners) {
+            createPageFromSpinnerSelection(spinner);
+        }
+    }
+
+    private String spinnerIdToStepLabel(String spinnerId) {
+        String number = spinnerId.replaceAll("\\D+", "");
+        return "step " + number;
+    }
+
+    private void exitFragment() {
+        requireActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        buildPagesFromSpinners();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).updatePages(pages);
+        }
+    }
+
+    public LinkedList<Page> getPages() {
+        return pages;
+    }
 }
