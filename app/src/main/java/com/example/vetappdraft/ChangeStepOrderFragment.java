@@ -1,5 +1,6 @@
 package com.example.vetappdraft;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,21 +64,25 @@ public class ChangeStepOrderFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_change_step_order, container, false);
 
-        //buttons
+        // Buttons
         ImageButton btnGoBack = rootView.findViewById(R.id.imBtnGoBack);
         Button btnApply = rootView.findViewById(R.id.btnApply);
 
-        //button listeners
+        // Button listeners
         btnGoBack.setOnClickListener(v -> exitFragment());
         btnApply.setOnClickListener(v -> {
-            buildPagesFromSpinners();
-            if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).updatePages(pages);
+            if (hasDuplicateSelections()) {
+                showDuplicateWarning();
+            } else {
+                buildPagesFromSpinners();
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).updatePages(pages);
+                }
+                exitFragment();
             }
-            exitFragment();
         });
 
-        //spinner and label id's
+        // Spinner and label IDs
         for (int i = 1; i <= 10; i++) {
             int spinnerId = getResources().getIdentifier("spinner" + i, "id", requireContext().getPackageName());
             int labelId = getResources().getIdentifier("step" + i, "id", requireContext().getPackageName());
@@ -85,9 +90,7 @@ public class ChangeStepOrderFragment extends Fragment {
             stepLabels.add(rootView.findViewById(labelId));
         }
 
-        //setup the spinners
         setupSpinners();
-
         return rootView;
     }
 
@@ -96,105 +99,24 @@ public class ChangeStepOrderFragment extends Fragment {
                 android.R.layout.simple_spinner_item, stepOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        for (Spinner spinner : spinners) {
+        for (int i = 0; i < spinners.size(); i++) {
+            Spinner spinner = spinners.get(i);
             spinner.setAdapter(adapter);
+
+
+            if (i < stepOptions.size()) {
+                spinner.setSelection(i);
+            }
         }
     }
+
 
     private void createPageFromSpinnerSelection(Spinner spinner) {
         String spinnerIdString = getResources().getResourceEntryName(spinner.getId());
         String stepLabel = spinnerIdToStepLabel(spinnerIdString);
         String selectedText = spinner.getSelectedItem().toString();
 
-        switch (selectedText) {
-            case "Take a deep breath":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "take a deep breath", ""));
-                break;
-            case "Review reasons for living - Phone a friend":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "review reasons for living\nPhone a friend", ""));
-                break;
-            case "H.A.L.T":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "H.A.L.T", ""));
-                break;
-            case "2 minute mindful breathing":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "2 minute mindful breathing", "", R.raw.two_minutes_of_mindful_breathing_vf));
-                break;
-            case "SafetySOP":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "safetySOP", ""));
-                break;
-            case "Body scan meditation":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "body scan meditation", "", R.raw.body_scan_v2));
-                break;
-            case "Listen to music":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "listen to music", ""));
-                break;
-            case "Call someone - See who is online":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "call someone\nsee who is online", ""));
-                break;
-            case "Call hotlines":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "call hotlines", ""));
-                break;
-            case "Put weapons down":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "put weapons down", ""));
-                break;
-            case "Observe & describe":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "observe & describe", "", R.raw.observe_and_describe_vf));
-                break;
-            case "Leaves on a stream":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "leaves on a stream", "", R.raw.leaves_on_a_stream_vf));
-                break;
-            case "Identify values":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "identify values", ""));
-                break;
-            case "Mindful walking":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "mindful walking", "", R.raw.mindful_walking_vf));
-                break;
-            case "Progressive muscle relaxation":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "progressive muscle\nrelaxation", "", R.raw.progressive_muscle_relaxing_vf));
-                break;
-            case "Distract yourself":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "distract yourself", ""));
-                break;
-            case "Awareness of thought":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "awareness of thought", "", R.raw.awareness_of_thoughts_vf));
-                break;
-            case "Follow the circle":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "follow the circle", ""));
-                break;
-            case "Urge surfing":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "urge surfing", "", R.raw.urge_surfing_vf));
-                break;
-            case "SOBER - Stop - Observe - Breathe - Expand - Respond":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "SOBER\n-Stop\n-observe\n-breath\n-expand\n-respond", ""));
-                break;
-            case "Four squared breathing":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "four squared breathing", "", R.raw.four_square_breathing_vf));
-                break;
-            case "Diaphragmatic breathing":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "diaphragmatic breathing", "", R.raw.diagramic_breathing_vf));
-                break;
-            case "5 senses":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "5 senses", "", R.raw.five_senses_vf));
-                break;
-            case "Mountain meditation":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "mountain meditation", "", R.raw.mountian_meditation_vf));
-                break;
-            case "Distractions":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "distractions", ""));
-                break;
-            case "Whole body breathing":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "whole body breathing", "", R.raw.whole_body_breathing_meditation_vf));
-                break;
-            case "Breathing space":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "breathing space", "", R.raw.breathing_space_vf));
-                break;
-            case "Breathing body":
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, "breathing body", "", R.raw.breathing_body_vf));
-                break;
-            default:
-                pages.add(new Page(stepLabel, Page.PageType.TEXT, selectedText, ""));
-                break;
-        }
+        pages.add(new Page(stepLabel, Page.PageType.TEXT, selectedText, ""));
     }
 
     private void buildPagesFromSpinners() {
@@ -204,13 +126,33 @@ public class ChangeStepOrderFragment extends Fragment {
         }
     }
 
+    private boolean hasDuplicateSelections() {
+        List<String> selectedSteps = new ArrayList<>();
+        for (Spinner spinner : spinners) {
+            String selectedText = spinner.getSelectedItem().toString();
+            if (selectedSteps.contains(selectedText)) {
+                return true;
+            }
+            selectedSteps.add(selectedText);
+        }
+        return false;
+    }
+
+    private void showDuplicateWarning() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Duplicate Steps Found")
+                .setMessage("Please remove duplicate steps before applying changes.")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
     private String spinnerIdToStepLabel(String spinnerId) {
-        String number = spinnerId.replaceAll("\\D+", "");
-        return "step " + number;
+        // Extract numeric part from spinnerId and generate step label
+        String number = spinnerId.replaceAll("\\D+", ""); // Remove non-numeric characters
+        return "Step " + number;
     }
 
     private void exitFragment() {
-
         requireActivity().getSupportFragmentManager().popBackStack();
     }
 
@@ -224,7 +166,6 @@ public class ChangeStepOrderFragment extends Fragment {
     }
 
     public LinkedList<Page> getPages() {
-
         return pages;
     }
 }
