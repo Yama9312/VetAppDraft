@@ -49,6 +49,7 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 8", Page.PageType.TEXT, "call someone\nsee who is online", ""));
         pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines", ""));
         pages.add(new Page("step 10", Page.PageType.TEXT, "put weapons down", ""));
+        /*
         pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", "", R.raw.observe_and_describe_vf));
         pages.add(new Page("step 12", Page.PageType.TEXT, "leaves on a stream", "", R.raw.leaves_on_a_stream_vf));
         pages.add(new Page("step 13", Page.PageType.TEXT, "identify values", ""));
@@ -68,6 +69,7 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space", "", R.raw.breathing_space_vf));
         pages.add(new Page("step 28", Page.PageType.TEXT, "breathing body", "", R.raw.breathing_body_vf));
 
+        */
         // Add NavigationBarFragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
