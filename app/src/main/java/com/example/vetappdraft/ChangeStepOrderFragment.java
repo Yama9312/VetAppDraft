@@ -58,6 +58,13 @@ public class ChangeStepOrderFragment extends Fragment {
             "Breathing body"
     );
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment.
+     * @param inflater The LayoutInflater object that can be used to inflate any views.
+     * @param container If non-null, this is the parent view to attach the fragment's UI to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous state.
+     * @return The root view for the fragment's UI.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -94,6 +101,9 @@ public class ChangeStepOrderFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Initializes the spinners with step options and sets default selections.
+     */
     private void setupSpinners() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item, stepOptions);
@@ -103,14 +113,16 @@ public class ChangeStepOrderFragment extends Fragment {
             Spinner spinner = spinners.get(i);
             spinner.setAdapter(adapter);
 
-
             if (i < stepOptions.size()) {
                 spinner.setSelection(i);
             }
         }
     }
 
-
+    /**
+     * Creates a Page object based on the selected item in the spinner and adds it to the list.
+     * @param spinner The spinner whose selected item will be used to create a Page.
+     */
     private void createPageFromSpinnerSelection(Spinner spinner) {
         String spinnerIdString = getResources().getResourceEntryName(spinner.getId());
         String stepLabel = spinnerIdToStepLabel(spinnerIdString);
@@ -119,6 +131,9 @@ public class ChangeStepOrderFragment extends Fragment {
         pages.add(new Page(stepLabel, Page.PageType.TEXT, selectedText, ""));
     }
 
+    /**
+     * Builds the list of pages from the current spinner selections.
+     */
     private void buildPagesFromSpinners() {
         pages.clear();
         for (Spinner spinner : spinners) {
@@ -126,6 +141,10 @@ public class ChangeStepOrderFragment extends Fragment {
         }
     }
 
+    /**
+     * Checks whether there are any duplicate step selections in the spinners.
+     * @return True if duplicates exist, false otherwise.
+     */
     private boolean hasDuplicateSelections() {
         List<String> selectedSteps = new ArrayList<>();
         for (Spinner spinner : spinners) {
@@ -138,6 +157,9 @@ public class ChangeStepOrderFragment extends Fragment {
         return false;
     }
 
+    /**
+     * Displays an alert dialog warning the user about duplicate step selections.
+     */
     private void showDuplicateWarning() {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Duplicate Steps Found")
@@ -146,16 +168,26 @@ public class ChangeStepOrderFragment extends Fragment {
                 .show();
     }
 
+    /**
+     * Converts a spinner ID string into a corresponding step label.
+     * @param spinnerId The resource ID string of the spinner (e.g., "spinner1").
+     * @return A formatted step label (e.g., "Step 1").
+     */
     private String spinnerIdToStepLabel(String spinnerId) {
-        // Extract numeric part from spinnerId and generate step label
-        String number = spinnerId.replaceAll("\\D+", ""); // Remove non-numeric characters
+        String number = spinnerId.replaceAll("\\D+", "");
         return "Step " + number;
     }
 
+    /**
+     * Exits the current fragment by popping it from the back stack.
+     */
     private void exitFragment() {
         requireActivity().getSupportFragmentManager().popBackStack();
     }
 
+    /**
+     * Called when the fragment is paused. Updates the main activity's pages.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -165,6 +197,10 @@ public class ChangeStepOrderFragment extends Fragment {
         }
     }
 
+    /**
+     * Returns the list of Page objects built from spinner selections.
+     * @return A LinkedList of Page objects.
+     */
     public LinkedList<Page> getPages() {
         return pages;
     }
