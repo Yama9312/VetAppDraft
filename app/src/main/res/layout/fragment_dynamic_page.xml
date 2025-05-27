@@ -53,5 +53,11 @@
             android:text="Next" />
     </LinearLayout>
 
+    <TextView
+            android:text="Loyalty, Duty, Respect, Selfless Service, Honor, Integrity, Personal Courage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" />
+
 
 </LinearLayout>
