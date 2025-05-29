@@ -77,14 +77,14 @@ public class DynamicPageFragment extends Fragment {
     ImageView gifImageView = view.findViewById(R.id.gifImageView);
 
 
-    if (mPage.getContent ().equals ("Follow the circle")) {
+    if (mPage.getContent ().equals ("follow the circle")) {
       gifImageView.setVisibility(View.VISIBLE);
       Glide.with(requireContext())
           .asGif()
           .load(R.drawable.circle_breathing)
           .into(gifImageView);
     }
-    else if (mPage.getContent ().equals ("Four squared breathing")) {
+    else if (mPage.getContent ().equals ("four squared breathing")) {
       gifImageView.setVisibility(View.VISIBLE);
       Glide.with(requireContext())
           .asGif()
