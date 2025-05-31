@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.text.TextWatcher;
 
 import java.util.concurrent.Executors;
 
@@ -94,6 +96,8 @@ public class FirstSetupFragment extends Fragment {
     mSpinChoice = view.findViewById(R.id.spnBranch);
     tvContact = view.findViewById(R.id.phEContact1);
 
+    tvContact.addTextChangedListener(new PhoneNumberFormattingTextWatcher ());
+
     mcDB = Room.databaseBuilder(requireContext(),
             VetDatabase.class, "VET-DB").build();
     mcDAO = mcDB.vetDAO();
@@ -112,7 +116,13 @@ public class FirstSetupFragment extends Fragment {
 
     btnSubmit.setOnClickListener(v -> {
       sBranch = mSpinChoice.getSelectedItem().toString();
-      eContact = tvContact.getText().toString();
+      eContact = tvContact.getText().toString().replaceAll("[^\\d]", "");
+
+      if (eContact.length() != 10) {
+        tvContact.setError("Enter a valid 10-digit U.S. phone number");
+        return;
+      }
+
       Executors.newSingleThreadExecutor().execute(() -> {
         VetUser newUser = new VetUser(sBranch, eContact);
         mcDAO.insert(newUser);

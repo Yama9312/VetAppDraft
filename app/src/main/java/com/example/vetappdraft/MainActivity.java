@@ -22,6 +22,15 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
+     * Updates the list of pages with a new ordered list.
+     * @param newPages The new list of pages selected by the user.
+     */
+    public void updatePages(LinkedList<Page> newPages) {
+        pages.clear();
+        pages.addAll(newPages);
+    }
+
+    /**
      * Initializes the activity, sets up the layout, and loads initial fragments.
      * @param savedInstanceState The previously saved instance state, if available.
      */
