@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -95,8 +96,27 @@ public class MainActivity extends BaseActivity {
         transaction.replace(R.id.navigation_bar_container, new TopNavBarFragment());
         transaction.commit();
 
-        // Load initial content fragment
-        loadContentFragment(new FirstSetupFragment());
+        VetDatabase db = VetDatabase.getInstance(this);
+        VetDAO dao = db.vetDAO();
+
+        new Thread(() -> {
+            List<VetUser> users = dao.getAll();
+
+            Fragment initialFragment;
+            if (users.isEmpty()) {
+                initialFragment = new FirstSetupFragment();
+            } else if (users.get(0).getMusicPreference() == null) {
+                initialFragment = new MusicSetupFragment();
+            } else {
+                initialFragment = new DynamicPageFragment();
+            }
+
+            Fragment finalInitialFragment = initialFragment;
+            runOnUiThread(() -> {
+                loadContentFragment(finalInitialFragment);
+            });
+        }).start();
+
     }
 
     /**

@@ -33,6 +33,12 @@ import java.util.concurrent.Executors;
 
 public class FirstSetupFragment extends Fragment {
 
+  public enum MusicPreference {
+    YOUTUBE,
+    SPOTIFY,
+    LOCAL
+  }
+
   private Spinner mSpinChoice;
   private Button btnSubmit;
   private TextView tvContact;
@@ -102,18 +108,6 @@ public class FirstSetupFragment extends Fragment {
             VetDatabase.class, "VET-DB").build();
     mcDAO = mcDB.vetDAO();
 
-    new Thread(() -> {
-      int userCount = mcDAO.getSize();
-      requireActivity().runOnUiThread(() -> {
-        if (userCount > 0) {
-          FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, new DynamicPageFragment());
-          transaction.addToBackStack(null);
-          transaction.commit();
-        }
-      });
-    }).start();
-
     btnSubmit.setOnClickListener(v -> {
       sBranch = mSpinChoice.getSelectedItem().toString();
       eContact = tvContact.getText().toString().replaceAll("[^\\d]", "");
@@ -128,7 +122,7 @@ public class FirstSetupFragment extends Fragment {
         mcDAO.insert(newUser);
         requireActivity().runOnUiThread(() -> {
           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0));
+          transaction.replace(R.id.fragment_container, new MusicSetupFragment ());
           transaction.commit();
         });
       });

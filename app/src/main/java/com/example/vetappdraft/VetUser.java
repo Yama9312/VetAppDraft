@@ -16,6 +16,9 @@ public class VetUser {
     @ColumnInfo (name = "mcEContact")
     private String mcEContact;
 
+    @ColumnInfo(name = "musicPreference")
+    private String musicPreference;
+
     //***************************************************************************
     // Method:      setUID
     //
@@ -36,13 +39,14 @@ public class VetUser {
     //              and emergency contact information.
     //
     // Parameters:  mcBranch - the branch of the VetUser
-    //             mcEContact - the emergency contact for the VetUser
+    //              mcEContact - the emergency contact for the VetUser
     //
     // Returned:    None
     //***************************************************************************
     public VetUser(String mcBranch, String mcEContact) {
         this.mcBranch = mcBranch;
         this.mcEContact = mcEContact;
+        this.musicPreference = null;
     }
 
     //***************************************************************************
@@ -108,6 +112,33 @@ public class VetUser {
     //***************************************************************************
     public int getUID() {
         return UID;
+    }
+
+    //***************************************************************************
+    // Method:      getMusicPreference
+    //
+    // Description: Returns the music preference string
+    //
+    // Parameters:  None
+    //
+    // Returned:    string - the specified music preference
+    //***************************************************************************
+    public String getMusicPreference() {
+        return musicPreference;
+    }
+
+    //***************************************************************************
+    // Method:      setMusicPreference
+    //
+    // Description: Sets the music preference for the VetUser
+    //
+    // Parameters:  musicPreference - the string to set for the VetUser music
+    //                                preference
+    //
+    // Returned:    None
+    //***************************************************************************
+    public void setMusicPreference(String musicPreference) {
+        this.musicPreference = musicPreference;
     }
 }
 
