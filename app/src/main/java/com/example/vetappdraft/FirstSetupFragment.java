@@ -104,8 +104,7 @@ public class FirstSetupFragment extends Fragment {
 
     tvContact.addTextChangedListener(new PhoneNumberFormattingTextWatcher ());
 
-    mcDB = Room.databaseBuilder(requireContext(),
-            VetDatabase.class, "VET-DB").build();
+    mcDB = VetDatabase.getInstance(requireContext());
     mcDAO = mcDB.vetDAO();
 
     btnSubmit.setOnClickListener(v -> {
@@ -118,11 +117,13 @@ public class FirstSetupFragment extends Fragment {
       }
 
       Executors.newSingleThreadExecutor().execute(() -> {
-        VetUser newUser = new VetUser(sBranch, eContact);
-        mcDAO.insert(newUser);
+        if (mcDAO.getSize() == 0) {
+          VetUser newUser = new VetUser(sBranch, eContact);
+          mcDAO.insert(newUser);
+        }
         requireActivity().runOnUiThread(() -> {
           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, new MusicSetupFragment ());
+          transaction.replace(R.id.fragment_container, new MusicSetupFragment());
           transaction.commit();
         });
       });

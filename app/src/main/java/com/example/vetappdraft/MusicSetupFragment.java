@@ -58,6 +58,7 @@ public class MusicSetupFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
 
     View view = inflater.inflate(R.layout.fragment_music_setup, container, false);
+
     mDB = VetDatabase.getInstance(requireContext());
 
     mRadioStreaming = view.findViewById(R.id.radio_streaming);
@@ -107,7 +108,7 @@ public class MusicSetupFragment extends Fragment {
           return;
         }
 
-        // mDB.vetDAO().update(user);
+        mDB.vetDAO().update(user);
 
         requireActivity().runOnUiThread(() -> {
           // Launch your main app fragment or activity
