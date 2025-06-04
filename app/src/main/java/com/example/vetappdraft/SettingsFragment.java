@@ -71,10 +71,13 @@ public class SettingsFragment extends Fragment {
         emergencyContactsButton = view.findViewById(R.id.emergencyContactsButton);
 
         emergencyContactsButton.setOnClickListener(v -> {
-            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = requireActivity()
+            .getSupportFragmentManager()
+            .beginTransaction();
             transaction.replace(R.id.fragment_container, new EmergencyFragment());
             transaction.addToBackStack(null);
             transaction.commit();
+
         });
 //
 //        appearanceButton.setOnClickListener(v -> {
