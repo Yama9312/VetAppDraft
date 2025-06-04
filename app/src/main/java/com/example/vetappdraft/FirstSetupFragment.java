@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.text.TextWatcher;
 
 import java.util.concurrent.Executors;
 
 public class FirstSetupFragment extends Fragment {
+
+  public enum MusicPreference {
+    YOUTUBE,
+    SPOTIFY,
+    LOCAL
+  }
 
   private Spinner mSpinChoice;
   private Button btnSubmit;
@@ -94,31 +102,28 @@ public class FirstSetupFragment extends Fragment {
     mSpinChoice = view.findViewById(R.id.spnBranch);
     tvContact = view.findViewById(R.id.phEContact1);
 
-    mcDB = Room.databaseBuilder(requireContext(),
-            VetDatabase.class, "VET-DB").build();
-    mcDAO = mcDB.vetDAO();
+    tvContact.addTextChangedListener(new PhoneNumberFormattingTextWatcher ());
 
-    new Thread(() -> {
-      int userCount = mcDAO.getSize();
-      requireActivity().runOnUiThread(() -> {
-        if (userCount > 0) {
-          FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, new DynamicPageFragment());
-          transaction.addToBackStack(null);
-          transaction.commit();
-        }
-      });
-    }).start();
+    mcDB = VetDatabase.getInstance(requireContext());
+    mcDAO = mcDB.vetDAO();
 
     btnSubmit.setOnClickListener(v -> {
       sBranch = mSpinChoice.getSelectedItem().toString();
-      eContact = tvContact.getText().toString();
+      eContact = tvContact.getText().toString().replaceAll("[^\\d]", "");
+
+      if (eContact.length() != 10) {
+        tvContact.setError("Enter a valid 10-digit U.S. phone number");
+        return;
+      }
+
       Executors.newSingleThreadExecutor().execute(() -> {
-        VetUser newUser = new VetUser(sBranch, eContact);
-        mcDAO.insert(newUser);
+        if (mcDAO.getSize() == 0) {
+          VetUser newUser = new VetUser(sBranch, eContact);
+          mcDAO.insert(newUser);
+        }
         requireActivity().runOnUiThread(() -> {
           FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0));
+          transaction.replace(R.id.fragment_container, new MusicSetupFragment());
           transaction.commit();
         });
       });

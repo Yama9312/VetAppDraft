@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface VetDAO {
 
     @Query ("SELECT COUNT(*) FROM VetUser")
     int getSize ();
+
+    @Update
+    void update(VetUser user);
 }

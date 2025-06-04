@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/second_setup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/setup_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Music Preference"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+    <RadioGroup
+            android:id="@+id/preference_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RadioButton
+                android:id="@+id/radio_streaming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Streaming service (requires subscription)" />
+
+        <RadioButton
+                android:id="@+id/radio_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use uploaded music files" />
+    </RadioGroup>
+
+    <LinearLayout
+            android:id="@+id/streaming_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="16dp">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose a streaming service:" />
+
+        <RadioGroup
+                android:id="@+id/streaming_service_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <RadioButton
+                    android:id="@+id/radio_youtube"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="YouTube" />
+
+            <RadioButton
+                    android:id="@+id/radio_spotify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Spotify" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/button_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:layout_marginTop="24dp" />
+</LinearLayout>
