@@ -56,10 +56,9 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines",
             "", -999, true));
         pages.add(new Page("step 10", Page.PageType.TEXT, "put weapons down", ""));
-        pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", "",
-            R.raw.observe_and_describe_vf));
-        pages.add(new Page("step 12", Page.PageType.TEXT, "leaves on a stream", "",
-            R.raw.leaves_on_a_stream_vf));
+
+        pages.add(new Page("step 11", Page.PageType.TEXT, "observe & describe", "", R.raw.observe_and_describe_vf));
+        pages.add(new Page("step 12", Page.PageType.TEXT, "leaves on a stream", "", R.raw.leaves_on_a_stream_vf));
         pages.add(new Page("step 13", Page.PageType.TEXT, "identify values", ""));
         pages.add(new Page("step 14", Page.PageType.TEXT, "mindful walking", "",
             R.raw.mindful_walking_vf));

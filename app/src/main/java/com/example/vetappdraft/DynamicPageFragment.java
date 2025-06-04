@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.Manifest;
+
+import com.bumptech.glide.Glide;
 
 public class DynamicPageFragment extends Fragment {
 
@@ -81,6 +84,26 @@ public class DynamicPageFragment extends Fragment {
     // Set page content
     mTitleTextView.setText(mPage.getName());
     mContentTextView.setText(mPage.getContent());
+    ImageView gifImageView = view.findViewById(R.id.gifImageView);
+
+
+    if (mPage.getContent ().equals ("follow the circle")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+          .asGif()
+          .load(R.drawable.circle_breathing)
+          .into(gifImageView);
+    }
+    else if (mPage.getContent ().equals ("four squared breathing")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+          .asGif()
+          .load(R.drawable.square_breathing)
+          .into(gifImageView);
+    }
+    else {
+      gifImageView.setVisibility(View.GONE);
+    }
 
     // Only show the play button if audio exists
     if (mPage.getAudioResId() != -999) {
