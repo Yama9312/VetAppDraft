@@ -24,8 +24,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.Manifest;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.net.URI;
 
 public class DynamicPageFragment extends Fragment {
 
@@ -39,6 +42,7 @@ public class DynamicPageFragment extends Fragment {
   private Button mPlayButton;
   private Button mCallButton;
   private MediaPlayer mMediaPlayer;
+  private Button mFidgetButton;
 
   private int mPageIndex;
   private static final String ARG_PAGE_INDEX = "page_index";
@@ -70,6 +74,7 @@ public class DynamicPageFragment extends Fragment {
     mNextButton = view.findViewById(R.id.nextButton);
     mPlayButton = view.findViewById(R.id.playButton);
     mCallButton = view.findViewById(R.id.callButton);
+    mFidgetButton = view.findViewById(R.id.fidgetButton);
 
     return view;
   }
@@ -141,12 +146,27 @@ public class DynamicPageFragment extends Fragment {
       mCallButton.setVisibility (View.GONE);
     }
 
+    // show fidget button only when on distractions page
+    if (mPage.getLinks()) {
+      mFidgetButton.setVisibility(View.VISIBLE);
+      mFidgetButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          goToUrl("https://ffffidget.com/");
+        }
+      });
+    } else {
+      mFidgetButton.setVisibility(View.GONE);
+    }
+
     // Navigation buttons
     mPreviousButton.setOnClickListener(v -> navigate(-1));
     mNextButton.setOnClickListener(v -> navigate(1));
 
     mPreviousButton.setEnabled(mPageIndex > 0);
     mNextButton.setEnabled(mPageIndex < ((MainActivity) requireActivity()).getPages().size() - 1);
+
+
   }
 
   private void navigate(int direction) {
@@ -163,5 +183,14 @@ public class DynamicPageFragment extends Fragment {
       mMediaPlayer = null;
     }
     super.onDestroyView();
+  }
+
+  void goToUrl (String linkURL) {
+    try {
+      Uri url = Uri.parse(linkURL);
+      startActivity(new Intent(Intent.ACTION_VIEW, url));
+    } catch (Exception e) {
+      Toast.makeText(getContext(), "No Website Linked", Toast.LENGTH_SHORT).show();
+    }
   }
 }
