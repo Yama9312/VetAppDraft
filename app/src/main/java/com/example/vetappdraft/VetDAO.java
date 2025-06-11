@@ -26,4 +26,5 @@ public interface VetDAO {
 
     @Update
     void update(VetUser user);
+
 }
