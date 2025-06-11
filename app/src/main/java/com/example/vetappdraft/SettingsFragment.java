@@ -68,15 +68,17 @@ public class SettingsFragment extends Fragment {
             transaction.commit();
         });
 
-//        emergencyContactsButton.setOnClickListener(v -> {
-//            // Navigate to Emergency Contacts Fragment
-//            // Replace with your actual fragment
-//            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container, new EmergencyContactsFragment());//EmergencyContactsFragment is a placeholder.
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//
-//        });
+        emergencyContactsButton = view.findViewById(R.id.emergencyContactsButton);
+
+        emergencyContactsButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity()
+            .getSupportFragmentManager()
+            .beginTransaction();
+            transaction.replace(R.id.fragment_container, new EmergencyFragment());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        });
 //
 //        appearanceButton.setOnClickListener(v -> {
 //            // Navigate to Appearance Settings Fragment
