@@ -24,6 +24,7 @@ public interface VetDAO {
     @Query ("SELECT COUNT(*) FROM VetUser")
     int getSize ();
 
+
     @Update
     void update(VetUser user);
 }

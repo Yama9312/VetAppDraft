@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.LinkedList;
+
 @Entity
 public class VetUser {
 
@@ -18,6 +20,19 @@ public class VetUser {
 
     @ColumnInfo(name = "musicPreference")
     private String musicPreference;
+
+    @ColumnInfo(name = "pageOrder")
+    private LinkedList<Page> mcPageOrder;
+
+    public LinkedList<Page> getMcPageOrder ()
+    {
+        return mcPageOrder;
+    }
+
+    public void setMcPageOrder (LinkedList<Page> mcPageOrder)
+    {
+        this.mcPageOrder = mcPageOrder;
+    }
 
     //***************************************************************************
     // Method:      setUID

@@ -82,10 +82,24 @@ public class ChangeStepOrderFragment extends Fragment {
                 showDuplicateWarning();
             } else {
                 buildPagesFromSpinners();
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).updatePages(pages);
-                }
-                exitFragment();
+
+                new Thread(() -> {
+                    VetDatabase db = VetDatabase.getInstance(requireContext());
+                    VetDAO dao = db.vetDAO();
+
+                    VetUser user = dao.getAll ().get (0);
+                    if (user != null) {
+                        user.setMcPageOrder(pages);
+                        dao.update(user);
+                    }
+
+                    requireActivity().runOnUiThread(() -> {
+                        if (getActivity() instanceof MainActivity) {
+                            ((MainActivity) getActivity()).updatePages(pages);
+                        }
+                        exitFragment();
+                    });
+                }).start();
             }
         });
 
