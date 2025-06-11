@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity {
             "", R.raw.five_senses_vf));
         pages.add(new Page("step 24", Page.PageType.TEXT, "mountain meditation",
             "", R.raw.mountian_meditation_vf));
-        pages.add(new Page("step 25", Page.PageType.TEXT, "distractions", ""));
+        pages.add(new Page("step 25", Page.PageType.TEXT, "distractions", "", true));
         pages.add(new Page("step 26", Page.PageType.TEXT, "whole body breathing",
             "", R.raw.whole_body_breathing_meditation_vf));
         pages.add(new Page("step 27", Page.PageType.TEXT, "breathing space",
