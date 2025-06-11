@@ -43,6 +43,8 @@ public class DynamicPageFragment extends Fragment {
   private Button mCallButton;
   private MediaPlayer mMediaPlayer;
   private Button mFidgetButton;
+  private Button mMathButton;
+  private Button mCrosswordButton;
 
   private int mPageIndex;
   private static final String ARG_PAGE_INDEX = "page_index";
@@ -75,6 +77,8 @@ public class DynamicPageFragment extends Fragment {
     mPlayButton = view.findViewById(R.id.playButton);
     mCallButton = view.findViewById(R.id.callButton);
     mFidgetButton = view.findViewById(R.id.fidgetButton);
+    mMathButton = view.findViewById(R.id.mathButton);
+    mCrosswordButton = view.findViewById(R.id.crosswordButton);
 
     return view;
   }
@@ -149,14 +153,30 @@ public class DynamicPageFragment extends Fragment {
     // show fidget button only when on distractions page
     if (mPage.getLinks()) {
       mFidgetButton.setVisibility(View.VISIBLE);
+      mMathButton.setVisibility(View.VISIBLE);
+      mCrosswordButton.setVisibility(View.VISIBLE);
       mFidgetButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           goToUrl("https://ffffidget.com/");
         }
       });
+      mMathButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          goToUrl("https://www.wolframalpha.com/problem-generator/quiz/?category=Arithmetic&topic=AddOrSubtractSummary");
+        }
+      });
+      mCrosswordButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          goToUrl("https://www.boatloadpuzzles.com/playcrossword");
+        }
+      });
     } else {
       mFidgetButton.setVisibility(View.GONE);
+      mMathButton.setVisibility(View.GONE);
+      mCrosswordButton.setVisibility(View.GONE);
     }
 
     // Navigation buttons
