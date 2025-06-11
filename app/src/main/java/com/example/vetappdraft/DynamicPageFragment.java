@@ -39,6 +39,7 @@ public class DynamicPageFragment extends Fragment {
   private Button mPlayButton;
   private Button mCallButton;
   private MediaPlayer mMediaPlayer;
+  private VetDatabase mDB;
 
   private int mPageIndex;
   private static final String ARG_PAGE_INDEX = "page_index";
@@ -63,6 +64,8 @@ public class DynamicPageFragment extends Fragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dynamic_page, container, false);
+
+    mDB = VetDatabase.getInstance(requireContext());
 
     mTitleTextView = view.findViewById(R.id.pageTitle);
     mContentTextView = view.findViewById(R.id.pageContent);
@@ -123,23 +126,28 @@ public class DynamicPageFragment extends Fragment {
     }
 
     // show call button only when intend to call
-    if (mPage.getCallFlag ()) {
-      mCallButton.setVisibility (View.VISIBLE);
-      mPlayButton.setOnClickListener(v -> {
-        Intent callIntent = new Intent (Intent.ACTION_DIAL);
+    if (mPage.getCallFlag()) {
+      mCallButton.setVisibility(View.VISIBLE);
+      mCallButton.setOnClickListener(v -> {
+        String phone = mDB.vetDAO().getContact ();
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
-            != PackageManager.PERMISSION_GRANTED) {
-          ActivityCompat.requestPermissions(requireActivity(),
-              new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-        } else {
-          callIntent.setData (Uri.parse ("tel:1234567890"));
-          startActivity(callIntent);
+        if (phone != null && !phone.isEmpty()) {
+          Intent callIntent = new Intent(Intent.ACTION_CALL);
+          callIntent.setData(Uri.parse("tel:" + phone));
+
+          if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
+              != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+          } else {
+            startActivity(callIntent);
+          }
         }
       });
     } else {
-      mCallButton.setVisibility (View.GONE);
+      mCallButton.setVisibility(View.GONE);
     }
+
 
     // Navigation buttons
     mPreviousButton.setOnClickListener(v -> navigate(-1));
