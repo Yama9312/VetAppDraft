@@ -26,7 +26,7 @@ public class Converters {
           .append(PAGE_DELIMITER);
     }
 
-    // Remove last PAGE_DELIMITER
+    // Remove trailing PAGE_DELIMITER
     return builder.substring(0, builder.length() - PAGE_DELIMITER.length());
   }
 
@@ -38,6 +38,8 @@ public class Converters {
     String[] pageStrings = data.split(PAGE_DELIMITER);
     for (String pageString : pageStrings) {
       String[] fields = pageString.split(java.util.regex.Pattern.quote(FIELD_DELIMITER));
+
+      // Defensive check
       if (fields.length == 6) {
         String name = unescape(fields[0]);
         PageType type = PageType.valueOf(fields[1]);
@@ -48,18 +50,30 @@ public class Converters {
 
         Page page = new Page(name, type, content, instructions, audioResId, callFlag);
         pages.add(page);
+      } else if (fields.length == 4) {
+        // Fallback for legacy format without audio/call
+        String name = unescape(fields[0]);
+        PageType type = PageType.valueOf(fields[1]);
+        String content = unescape(fields[2]);
+        String instructions = unescape(fields[3]);
+
+        Page page = new Page(name, type, content, instructions);
+        pages.add(page);
+      } else {
+        // Log or skip bad data
+        // Log.w("Converters", "Invalid page data: " + pageString);
       }
     }
 
     return pages;
   }
 
-  // Escape any characters that could interfere with delimiters
   private String escape(String s) {
+    if (s == null) return "";
     return s.replace(FIELD_DELIMITER, "").replace(PAGE_DELIMITER, "");
   }
 
   private String unescape(String s) {
-    return s; // Placeholder in case you decide to add escaping logic
+    return s; // Reserved for future if you need escaping
   }
 }

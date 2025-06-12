@@ -6,12 +6,54 @@
         android:padding="16dp">
 
     <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Emergency Contacts"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"/>
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
 
+    <!-- EMS / 911 -->
+    <TextView
+            android:id="@+id/textViewEMS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="911 / EMS: 911"
+            android:textColor="@android:color/holo_blue_dark"
+            android:autoLink="phone"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
+
+    <!-- Non-Emergent Police -->
+    <TextView
+            android:id="@+id/textViewPolice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Non-Emergent Police: 123-456-7890"
+            android:textColor="@android:color/holo_blue_dark"
+            android:autoLink="phone"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
+
+    <!-- Veterans Suicide Hotline -->
+    <TextView
+            android:id="@+id/textViewHotline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Veterans Suicide Hotline: 988"
+            android:textColor="@android:color/holo_blue_dark"
+            android:autoLink="phone"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
+
+    <!-- Phone a Friend (set number programmatically) -->
+    <TextView
+            android:id="@+id/textViewFriend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone a Friend: "
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp" />
 </LinearLayout>
