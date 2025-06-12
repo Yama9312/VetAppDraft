@@ -23,6 +23,8 @@ import java.util.List;
 public class ChangeStepOrderFragment extends Fragment {
 
     private View rootView;
+
+    List<Integer> mcPageIndexes = new ArrayList<>();
     private List<Spinner> spinners = new ArrayList<>();
     private List<TextView> stepLabels = new ArrayList<>();
     private LinkedList<Page> pages = new LinkedList<>();
@@ -89,7 +91,7 @@ public class ChangeStepOrderFragment extends Fragment {
 
                     VetUser user = dao.getAll ().get (0);
                     if (user != null) {
-                        user.setMcPageOrder(pages);
+                        user.setMcPageIndexes (mcPageIndexes);
                         dao.update(user);
                     }
 
@@ -143,6 +145,12 @@ public class ChangeStepOrderFragment extends Fragment {
         String selectedText = spinner.getSelectedItem().toString();
 
         pages.add(new Page(stepLabel, Page.PageType.TEXT, selectedText, ""));
+        for (int i = 0; i < stepLabels.size(); i++) {
+            if (stepLabels.get(i).getText().toString().equals(stepLabel)) {
+                mcPageIndexes.add (i);
+                break;
+            }
+        }
     }
 
     /**

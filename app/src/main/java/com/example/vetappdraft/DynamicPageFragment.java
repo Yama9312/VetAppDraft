@@ -84,7 +84,7 @@ public class DynamicPageFragment extends Fragment {
       VetDatabase db = VetDatabase.getInstance(requireContext());
       VetDAO dao = db.vetDAO();
       VetUser user = dao.getAll ().get (0);
-      //mPage = user.getMcPageOrder ().get (mPageIndex);
+      mPage = ((MainActivity) requireActivity()).getPages().get(user.getMcPageIndexes ().get (mPageIndex));
     }).start ();
 
     // Set page content

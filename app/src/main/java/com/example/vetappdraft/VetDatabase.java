@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @Database(entities = {VetUser.class}, version = 2)
-@TypeConverters ({Converters.class})
+@TypeConverters({Converters.class})
 public abstract class VetDatabase extends RoomDatabase {
 
     //***************************************************************************
