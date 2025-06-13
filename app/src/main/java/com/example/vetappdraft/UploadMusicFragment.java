@@ -19,24 +19,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import com.example.vetappdraft.R;
-import com.example.vetappdraft.VetDatabase;
-import com.example.vetappdraft.MusicFile;
 import java.io.File;
 
 public class UploadMusicFragment extends Fragment {
     private static final int PICK_AUDIO_REQUEST = 101;
     private VetDatabase db;
 
-    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        db = VetDatabase.getInstance(requireContext());
+    public UploadMusicFragment () {
+        // Required empty public constructor
     }
 
+//    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        db = VetDatabase.getInstance(requireContext());
+//    }
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_upload_music, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view;
+        view = inflater.inflate(R.layout.fragment_upload_music, container, false);
         Button btnSelectMusic = view.findViewById(R.id.btn_select_music);
+
+        db = VetDatabase.getInstance(requireContext());
 
         btnSelectMusic.setOnClickListener(v -> {
             if (checkPermissions()) {
