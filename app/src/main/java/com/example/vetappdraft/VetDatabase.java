@@ -5,7 +5,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {VetUser.class}, version = 2)
+@Database(entities = {VetUser.class, MusicFile.class}, version = 3)
 public abstract class VetDatabase extends RoomDatabase {
 
     //***************************************************************************
@@ -18,6 +18,17 @@ public abstract class VetDatabase extends RoomDatabase {
     // Returned:    VetDAO - the DAO for accessing VetUser data
     //***************************************************************************
     public abstract VetDAO vetDAO ();
+
+    //***************************************************************************
+    // Method:      musicFileDAO
+    //
+    // Description: Provides access to the MusicFileDAO for database operations
+    //
+    // Parameters:  None
+    //
+    // Returned:    MusicFileDAO - the DAO for accessing music file data
+    //***************************************************************************
+    public abstract MusicFileDAO musicFileDAO ();
 
     //***************************************************************************
     // Method:      getInstance
