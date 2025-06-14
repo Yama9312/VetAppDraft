@@ -146,13 +146,7 @@ public class ChangeStepOrderFragment extends Fragment {
         String selectedText = spinner.getSelectedItem().toString();
 
         pages.add(new Page(stepLabel, Page.PageType.TEXT, selectedText, ""));
-        for (int i = 0; i < spinners.size(); i++) {
-            if (((MainActivity) requireActivity()).getPages().get(i).getContent ().equalsIgnoreCase (selectedText)) {
-                mcPageIndexes.add(i);
-                Log.d("MC_DEBUG", "Added index to mcPageIndexes: " + i);
-                break;
-            }
-        }
+       mcPageIndexes.add (spinner.getSelectedItemPosition ());
     }
 
     /**

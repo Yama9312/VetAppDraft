@@ -98,7 +98,7 @@ public class DynamicPageFragment extends Fragment {
       // Now switch to the main thread to update UI
       requireActivity().runOnUiThread(() -> {
         // Set page content
-        mNextButton.setEnabled (mPageIndex < user.getMcPageIndexes ().size ());
+        mNextButton.setEnabled (mPageIndex < user.getMcPageIndexes ().size () - 1);
         mTitleTextView.setText(mPage.getName());
         mContentTextView.setText(mPage.getContent());
         ImageView gifImageView = view.findViewById(R.id.gifImageView);
