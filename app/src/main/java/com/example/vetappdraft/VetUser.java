@@ -22,7 +22,7 @@ public class VetUser {
     @ColumnInfo(name = "musicPreference")
     private String musicPreference;
 
-    @ColumnInfo(name = "pageOrder")
+    @ColumnInfo(name = "mcPageIndexes")
     private List<Integer> mcPageIndexes;
 
     public List<Integer> getMcPageIndexes() {

@@ -29,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.text.TextWatcher;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class FirstSetupFragment extends Fragment {
@@ -119,6 +121,8 @@ public class FirstSetupFragment extends Fragment {
       Executors.newSingleThreadExecutor().execute(() -> {
         if (mcDAO.getSize() == 0) {
           VetUser newUser = new VetUser(sBranch, eContact);
+          List<Integer> numbers = new ArrayList<> (List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+          newUser.setMcPageIndexes (numbers);
           mcDAO.insert(newUser);
         }
         requireActivity().runOnUiThread(() -> {
