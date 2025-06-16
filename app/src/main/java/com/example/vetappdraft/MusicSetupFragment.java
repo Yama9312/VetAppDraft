@@ -6,35 +6,22 @@
 //***************************************************************************
 package com.example.vetappdraft;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Room;
 
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.text.TextWatcher;
 import android.widget.Toast;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 public class MusicSetupFragment extends Fragment {
 
@@ -92,16 +79,16 @@ public class MusicSetupFragment extends Fragment {
         VetUser user = userList.get(0);
         if (mRadioStreaming.isChecked()) {
           if (mRadioYouTube.isChecked()) {
-            user.setMusicPreference("YOUTUBE");
+            user.setMcMusicPreference ("YOUTUBE");
           } else if (mRadioSpotify.isChecked()) {
-            user.setMusicPreference("SPOTIFY");
+            user.setMcMusicPreference ("SPOTIFY");
           } else {
             requireActivity().runOnUiThread(() ->
                 Toast.makeText(requireContext(), "Select a streaming service", Toast.LENGTH_SHORT).show());
             return;
           }
         } else if (mRadioLocal.isChecked()) {
-          user.setMusicPreference("LOCAL");
+          user.setMcMusicPreference ("LOCAL");
         } else {
           requireActivity().runOnUiThread(() ->
               Toast.makeText(requireContext(), "Select a music preference", Toast.LENGTH_SHORT).show());

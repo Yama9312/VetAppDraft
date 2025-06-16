@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
             Fragment initialFragment;
             if (users.isEmpty()) {
                 initialFragment = new FirstSetupFragment();
-            } else if (users.get(0).getMusicPreference() == null) {
+            } else if (users.get(0).getMcMusicPreference () == null) {
                 initialFragment = new MusicSetupFragment();
             } else {
                 initialFragment = new DynamicPageFragment();
