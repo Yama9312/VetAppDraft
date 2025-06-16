@@ -27,7 +27,7 @@ public interface VetDAO {
     @Update
     void update(VetUser user);
 
-    @Query("SELECT mcEContact FROM VetUser")
+  @Query("SELECT mcEContact FROM VetUser")
     String getContact();
 
     @Query("SELECT mcMusicPreference FROM VetUser")
