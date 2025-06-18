@@ -2,6 +2,7 @@ package com.example.vetappdraft;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import java.util.List;
 public class ChangeStepOrderFragment extends Fragment {
 
     private View rootView;
+
+    List<Integer> mcPageIndexes = new ArrayList<>();
     private List<Spinner> spinners = new ArrayList<>();
     private List<TextView> stepLabels = new ArrayList<>();
     private LinkedList<Page> pages = new LinkedList<>();
@@ -81,11 +84,25 @@ public class ChangeStepOrderFragment extends Fragment {
             if (hasDuplicateSelections()) {
                 showDuplicateWarning();
             } else {
-                buildPagesFromSpinners();
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).updatePages(pages);
-                }
-                exitFragment();
+
+                new Thread(() -> {
+                    buildPagesFromSpinners();
+                    VetDatabase db = VetDatabase.getInstance(requireContext());
+                    VetDAO dao = db.vetDAO();
+
+                    VetUser user = dao.getAll ().get (0);
+                    if (user != null && !mcPageIndexes.isEmpty ()) {
+                        user.setMcPageIndexes (mcPageIndexes);
+                        dao.update(user);
+                    }
+
+                    requireActivity().runOnUiThread(() -> {
+                        if (getActivity() instanceof MainActivity) {
+                            ((MainActivity) getActivity()).updatePages(pages);
+                        }
+                        exitFragment();
+                    });
+                }).start();
             }
         });
 
@@ -129,6 +146,7 @@ public class ChangeStepOrderFragment extends Fragment {
         String selectedText = spinner.getSelectedItem().toString();
 
         pages.add(new Page(stepLabel, Page.PageType.TEXT, selectedText, ""));
+       mcPageIndexes.add (spinner.getSelectedItemPosition ());
     }
 
     /**

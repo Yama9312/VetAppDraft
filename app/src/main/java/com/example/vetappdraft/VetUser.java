@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Entity
 public class VetUser {
 
@@ -18,6 +21,17 @@ public class VetUser {
 
     @ColumnInfo(name = "musicPreference")
     private String musicPreference;
+
+    @ColumnInfo(name = "mcPageIndexes")
+    private List<Integer> mcPageIndexes;
+
+    public List<Integer> getMcPageIndexes() {
+        return mcPageIndexes;
+    }
+
+    public void setMcPageIndexes(List<Integer> mcPageIndexes) {
+        this.mcPageIndexes = mcPageIndexes;
+    }
 
     //***************************************************************************
     // Method:      setUID

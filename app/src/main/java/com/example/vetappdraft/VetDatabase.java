@@ -4,8 +4,10 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 @Database(entities = {VetUser.class}, version = 2)
+@TypeConverters({Converters.class})
 public abstract class VetDatabase extends RoomDatabase {
 
     //***************************************************************************

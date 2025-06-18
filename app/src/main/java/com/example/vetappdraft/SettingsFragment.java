@@ -72,8 +72,8 @@ public class SettingsFragment extends Fragment {
 
         emergencyContactsButton.setOnClickListener(v -> {
             FragmentTransaction transaction = requireActivity()
-            .getSupportFragmentManager()
-            .beginTransaction();
+                .getSupportFragmentManager()
+                .beginTransaction();
             transaction.replace(R.id.fragment_container, new EmergencyFragment());
             transaction.addToBackStack(null);
             transaction.commit();
