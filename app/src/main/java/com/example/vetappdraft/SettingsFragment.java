@@ -23,6 +23,7 @@ public class SettingsFragment extends Fragment {
     private Button emergencyContactsButton;
     private Button appearanceButton;
     private Button skillToolboxButton;
+    private Button changeMusicPrefButton;
 
     /**
      * Inflates the settings layout and initializes button views.
@@ -41,6 +42,7 @@ public class SettingsFragment extends Fragment {
 //        emergencyContactsButton = view.findViewById(R.id.emergencyContactsButton);
 //        appearanceButton = view.findViewById(R.id.appearanceButton);
 //        skillToolboxButton = view.findViewById(R.id.skillToolboxButton);
+        changeMusicPrefButton = view.findViewById (R.id.changeMusicPrefButton);
 
         return view;
     }
@@ -99,5 +101,17 @@ public class SettingsFragment extends Fragment {
 //            transaction.commit();
 //
 //        });
+
+        changeMusicPrefButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction();
+
+            Log.d("ButtonClick", "Went in here");
+
+            transaction.replace(R.id.fragment_container, new MusicSetupSettingsFragment ());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
     }
 }

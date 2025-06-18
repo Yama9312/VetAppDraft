@@ -19,8 +19,8 @@ public class VetUser {
     @ColumnInfo (name = "mcEContact")
     private String mcEContact;
 
-    @ColumnInfo(name = "musicPreference")
-    private String musicPreference;
+    @ColumnInfo(name = "mcMusicPreference")
+    private String mcMusicPreference;
 
     @ColumnInfo(name = "mcPageIndexes")
     private List<Integer> mcPageIndexes;
@@ -60,7 +60,7 @@ public class VetUser {
     public VetUser(String mcBranch, String mcEContact) {
         this.mcBranch = mcBranch;
         this.mcEContact = mcEContact;
-        this.musicPreference = null;
+        this.mcMusicPreference = null;
     }
 
     //***************************************************************************
@@ -137,8 +137,8 @@ public class VetUser {
     //
     // Returned:    string - the specified music preference
     //***************************************************************************
-    public String getMusicPreference() {
-        return musicPreference;
+    public String getMcMusicPreference () {
+        return mcMusicPreference;
     }
 
     //***************************************************************************
@@ -151,8 +151,8 @@ public class VetUser {
     //
     // Returned:    None
     //***************************************************************************
-    public void setMusicPreference(String musicPreference) {
-        this.musicPreference = musicPreference;
+    public void setMcMusicPreference (String mcMusicPreference) {
+        this.mcMusicPreference = mcMusicPreference;
     }
 }
 

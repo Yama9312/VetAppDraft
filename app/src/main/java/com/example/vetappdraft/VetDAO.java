@@ -30,4 +30,10 @@ public interface VetDAO {
 
   @Query("SELECT mcEContact FROM VetUser")
     String getContact();
+
+    @Query("SELECT mcMusicPreference FROM VetUser")
+    String getMcMusicPreference();
+
+    @Query("UPDATE VetUser SET mcMusicPreference = :preference")
+    void updateMcMusicPreference(String preference);
 }

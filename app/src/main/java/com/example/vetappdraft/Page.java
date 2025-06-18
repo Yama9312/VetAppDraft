@@ -3,7 +3,7 @@ package com.example.vetappdraft;
 public class Page {
 
     public enum PageType {
-        TEXT, AUDIO, LINK, IMAGE // more types to add in future
+        TEXT, AUDIO, LINK, IMAGE, CALL, MUSIC_PLAYER
     }
 
     private final String mcName;
