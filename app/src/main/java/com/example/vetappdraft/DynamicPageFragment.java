@@ -187,6 +187,14 @@ public class DynamicPageFragment extends Fragment {
       mCrosswordButton.setVisibility(View.GONE);
     }
 
+    if (mPage.getType () == Page.PageType.MUSIC_PLAYER) {
+      getChildFragmentManager()
+          .beginTransaction()
+          .replace(R.id.music_player_container, new MusicPlayerFragment())
+          .commit();
+
+    }
+
     // Navigation buttons
     mPreviousButton.setOnClickListener(v -> navigate(-1));
     mNextButton.setOnClickListener(v -> navigate(1));

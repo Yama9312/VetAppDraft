@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class MainActivity extends BaseActivity {
         pages.add(new Page("step 5", Page.PageType.TEXT, "safetySOP", ""));
         pages.add(new Page("step 6", Page.PageType.TEXT, "body scan meditation",
             "", R.raw.body_scan_v2));
-        pages.add(new Page("step 7", Page.PageType.TEXT, "listen to music", ""));
+        pages.add(new Page("step 7", Page.PageType.MUSIC_PLAYER, "listen to music", ""));
         pages.add(new Page("step 8", Page.PageType.TEXT,  "call someone\nsee who is online",
             "", -999, true));
         pages.add(new Page("step 9", Page.PageType.TEXT, "call hotlines",
