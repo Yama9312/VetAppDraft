@@ -90,44 +90,62 @@ public class DynamicPageFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    // Navigation buttons
+    mPreviousButton.setOnClickListener(v -> navigate(-1));
+    mNextButton.setOnClickListener(v -> navigate(1));
+
+    mPreviousButton.setEnabled(mPageIndex > 0);
+    mNextButton.setEnabled(mPageIndex < 9);
+
+
     // Get current page
-    mPage = ((MainActivity) requireActivity()).getPages().get(mPageIndex);
+    //mPage = ((MainActivity) requireActivity()).getPages().get(mPageIndex);
+    new Thread(() -> {
+      VetDatabase db = VetDatabase.getInstance(requireContext());
+      VetDAO dao = db.vetDAO();
+      VetUser user = dao.getAll().get(0);
+      mPage = ((MainActivity) requireActivity()).getPages().get(user.getMcPageIndexes().get(mPageIndex));
 
-    // Set page content
-    mTitleTextView.setText(mPage.getName());
-    mContentTextView.setText(mPage.getContent());
-    ImageView gifImageView = view.findViewById(R.id.gifImageView);
 
+      // Now switch to the main thread to update UI
+      requireActivity().runOnUiThread(() -> {
+        // Set page content
+        mNextButton.setEnabled (mPageIndex < user.getMcPageIndexes ().size () - 1);
+        mTitleTextView.setText(mPage.getName());
+        mContentTextView.setText(mPage.getContent());
+        ImageView gifImageView = view.findViewById(R.id.gifImageView);
 
-    if (mPage.getContent ().equals ("follow the circle")) {
-      gifImageView.setVisibility(View.VISIBLE);
-      Glide.with(requireContext())
-          .asGif()
-          .load(R.drawable.circle_breathing)
-          .into(gifImageView);
-    }
-    else if (mPage.getContent ().equals ("four squared breathing")) {
-      gifImageView.setVisibility(View.VISIBLE);
-      Glide.with(requireContext())
-          .asGif()
-          .load(R.drawable.square_breathing)
-          .into(gifImageView);
-    }
-    else {
-      gifImageView.setVisibility(View.GONE);
-    }
-
-    // Only show the play button if audio exists
-    if (mPage.getAudioResId() != -999) {
-      mPlayButton.setVisibility(View.VISIBLE);
-      mPlayButton.setOnClickListener(v -> {
-        if (mMediaPlayer != null) {
-          mMediaPlayer.release();
+        if (mPage.getContent().equalsIgnoreCase("follow the circle")) {
+          gifImageView.setVisibility(View.VISIBLE);
+          Glide.with(requireContext())
+              .asGif()
+              .load(R.drawable.circle_breathing)
+              .into(gifImageView);
+        } else if (mPage.getContent().equalsIgnoreCase("four squared breathing")) {
+          gifImageView.setVisibility(View.VISIBLE);
+          Glide.with(requireContext())
+              .asGif()
+              .load(R.drawable.square_breathing)
+              .into(gifImageView);
+        } else {
+          gifImageView.setVisibility(View.GONE);
         }
 
-        mMediaPlayer = MediaPlayer.create(requireContext(), mPage.getAudioResId());
-        if (mMediaPlayer != null) {
-          mMediaPlayer.start();
+        // Only show the play button if audio exists
+        if (mPage.getAudioResId() != -999) {
+          mPlayButton.setVisibility(View.VISIBLE);
+          mPlayButton.setOnClickListener(v -> {
+            if (mMediaPlayer != null) {
+              mMediaPlayer.release();
+            }
+
+            mMediaPlayer = MediaPlayer.create(requireContext(), mPage.getAudioResId());
+            if (mMediaPlayer != null) {
+              mMediaPlayer.start();
+            }
+          });
+        } else {
+          mPlayButton.setVisibility(View.GONE);
         }
       });
     } else {
