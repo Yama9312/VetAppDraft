@@ -41,6 +41,7 @@ public class UploadMusicFragment extends Fragment {
         View view;
         view = inflater.inflate(R.layout.fragment_upload_music, container, false);
         Button btnSelectMusic = view.findViewById(R.id.btn_select_music);
+        Button btnContinue = view.findViewById(R.id.btn_continue);
 
         db = VetDatabase.getInstance(requireContext());
 
@@ -51,6 +52,11 @@ public class UploadMusicFragment extends Fragment {
                 requestPermissions();
             }
         });
+
+        btnContinue.setOnClickListener(v -> {
+            // goes to the upload picture page
+        });
+
         return view;
     }
 

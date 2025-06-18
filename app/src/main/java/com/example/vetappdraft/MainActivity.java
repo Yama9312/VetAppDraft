@@ -102,13 +102,14 @@ public class MainActivity extends BaseActivity {
             List<VetUser> users = dao.getAll();
 
             Fragment initialFragment;
-            if (users.isEmpty()) {
-                initialFragment = new FirstSetupFragment();
-            } else if (users.get(0).getMusicPreference() == null) {
-                initialFragment = new MusicSetupFragment();
-            } else {
-                initialFragment = new DynamicPageFragment();
-            }
+//            if (users.isEmpty()) {
+//                initialFragment = new FirstSetupFragment();
+//            } else if (users.get(0).getMusicPreference() == null) {
+//                initialFragment = new MusicSetupFragment();
+//            } else {
+//                initialFragment = new DynamicPageFragment();
+//            }
+            initialFragment = new FirstSetupFragment();
 
             Fragment finalInitialFragment = initialFragment;
             runOnUiThread(() -> {
