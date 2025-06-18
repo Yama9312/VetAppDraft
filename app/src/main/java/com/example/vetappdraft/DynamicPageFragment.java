@@ -24,8 +24,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.Manifest;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.net.URI;
 
 public class DynamicPageFragment extends Fragment {
 
@@ -39,6 +42,10 @@ public class DynamicPageFragment extends Fragment {
   private Button mPlayButton;
   private Button mCallButton;
   private MediaPlayer mMediaPlayer;
+  private VetDatabase mDB;
+  private Button mFidgetButton;
+  private Button mMathButton;
+  private Button mCrosswordButton;
 
   private int mPageIndex;
   private static final String ARG_PAGE_INDEX = "page_index";
@@ -64,12 +71,17 @@ public class DynamicPageFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_dynamic_page, container, false);
 
+    mDB = VetDatabase.getInstance(requireContext());
+
     mTitleTextView = view.findViewById(R.id.pageTitle);
     mContentTextView = view.findViewById(R.id.pageContent);
     mPreviousButton = view.findViewById(R.id.previousButton);
     mNextButton = view.findViewById(R.id.nextButton);
     mPlayButton = view.findViewById(R.id.playButton);
     mCallButton = view.findViewById(R.id.callButton);
+    mFidgetButton = view.findViewById(R.id.fidgetButton);
+    mMathButton = view.findViewById(R.id.mathButton);
+    mCrosswordButton = view.findViewById(R.id.crosswordButton);
 
     return view;
   }
@@ -135,27 +147,63 @@ public class DynamicPageFragment extends Fragment {
         } else {
           mPlayButton.setVisibility(View.GONE);
         }
+      });
+    } else {
+      mPlayButton.setVisibility(View.GONE);
+    }
 
-        // Show call button only when needed
-        if (mPage.getCallFlag()) {
-          mCallButton.setVisibility(View.VISIBLE);
-          mPlayButton.setOnClickListener(v -> {
-            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+    // show call button only when intend to call
+    if (mPage.getCallFlag()) {
+      mCallButton.setVisibility(View.VISIBLE);
+      mCallButton.setOnClickListener(v -> {
+        String phone = mDB.vetDAO().getContact ();
 
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-              ActivityCompat.requestPermissions(requireActivity(),
-                  new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-            } else {
-              callIntent.setData(Uri.parse("tel:1234567890"));
-              startActivity(callIntent);
-            }
-          });
-        } else {
-          mCallButton.setVisibility(View.GONE);
+        if (phone != null && !phone.isEmpty()) {
+          Intent callIntent = new Intent(Intent.ACTION_CALL);
+          callIntent.setData(Uri.parse("tel:" + phone));
+
+          if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
+              != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+          } else {
+            startActivity(callIntent);
+          }
         }
       });
-    }).start();
+    } else {
+      mCallButton.setVisibility(View.GONE);
+    }
+
+
+    // show fidget button only when on distractions page
+    if (mPage.getLinks()) {
+      mFidgetButton.setVisibility(View.VISIBLE);
+      mMathButton.setVisibility(View.VISIBLE);
+      mCrosswordButton.setVisibility(View.VISIBLE);
+      mFidgetButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          goToUrl("https://ffffidget.com/");
+        }
+      });
+      mMathButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          goToUrl("https://www.wolframalpha.com/problem-generator/quiz/?category=Arithmetic&topic=AddOrSubtractSummary");
+        }
+      });
+      mCrosswordButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          goToUrl("https://www.boatloadpuzzles.com/playcrossword");
+        }
+      });
+    } else {
+      mFidgetButton.setVisibility(View.GONE);
+      mMathButton.setVisibility(View.GONE);
+      mCrosswordButton.setVisibility(View.GONE);
+    }
 
 
   }
@@ -174,5 +222,14 @@ public class DynamicPageFragment extends Fragment {
       mMediaPlayer = null;
     }
     super.onDestroyView();
+  }
+
+  void goToUrl (String linkURL) {
+    try {
+      Uri url = Uri.parse(linkURL);
+      startActivity(new Intent(Intent.ACTION_VIEW, url));
+    } catch (Exception e) {
+      Toast.makeText(getContext(), "No Website Linked", Toast.LENGTH_SHORT).show();
+    }
   }
 }

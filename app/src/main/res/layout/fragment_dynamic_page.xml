@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
+
     <TextView
         android:id="@+id/pageTitle"
         android:layout_width="wrap_content"
@@ -26,6 +27,27 @@
             android:layout_width="379dp"
             android:layout_height="271dp"
             android:id="@+id/gifImageView" />
+
+    <Button
+        android:id="@+id/fidgetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fidget Spinner"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/mathButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Math Problems"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/crosswordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crossword"
+        android:visibility="gone" />
 
     <Button
             android:id="@+id/playButton"
