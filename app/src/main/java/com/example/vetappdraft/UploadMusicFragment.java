@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import java.io.File;
 
 public class UploadMusicFragment extends Fragment {
@@ -54,7 +56,15 @@ public class UploadMusicFragment extends Fragment {
         });
 
         btnContinue.setOnClickListener(v -> {
-            // goes to the upload picture page
+            requireActivity().runOnUiThread(() -> {
+                FragmentTransaction transaction = requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                UploadImageFragment uIFragment = new UploadImageFragment();
+                transaction.replace(R.id.fragment_container, uIFragment);
+
+                transaction.commit();
+            });
         });
 
         return view;

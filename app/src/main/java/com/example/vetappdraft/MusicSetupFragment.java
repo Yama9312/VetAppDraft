@@ -120,7 +120,8 @@ public class MusicSetupFragment extends Fragment {
             UploadMusicFragment uMFragment = new UploadMusicFragment();
             transaction.replace(R.id.fragment_container, uMFragment);
           } else {
-            transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0));
+            UploadImageFragment uIFragment = new UploadImageFragment();
+            transaction.replace(R.id.fragment_container, uIFragment);
           }
 
           transaction.commit();
