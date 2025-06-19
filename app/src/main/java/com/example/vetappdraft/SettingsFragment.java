@@ -95,7 +95,7 @@ public class SettingsFragment extends Fragment {
             transaction.commit();
 
         });
-        //
+
 //        appearanceButton.setOnClickListener(v -> {
 //            // Navigate to Appearance Settings Fragment
 //            // Replace with your actual fragment
