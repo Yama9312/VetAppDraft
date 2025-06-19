@@ -24,6 +24,8 @@ public class SettingsFragment extends Fragment {
     private Button appearanceButton;
     private Button skillToolboxButton;
     private Button changeMusicPrefButton;
+    private Button returnToSteps;
+
 
     /**
      * Inflates the settings layout and initializes button views.
@@ -81,7 +83,19 @@ public class SettingsFragment extends Fragment {
             transaction.commit();
 
         });
-//
+
+        returnToSteps = view.findViewById(R.id.returnToStepsButton);
+
+        returnToSteps.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction();
+            transaction.replace(R.id.fragment_container, new DynamicPageFragment ());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        });
+        //
 //        appearanceButton.setOnClickListener(v -> {
 //            // Navigate to Appearance Settings Fragment
 //            // Replace with your actual fragment

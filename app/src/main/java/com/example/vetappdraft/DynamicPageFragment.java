@@ -178,8 +178,6 @@ public class DynamicPageFragment extends Fragment {
         }
       });
     }).start();
-
-    mNextButton.setEnabled(mPageIndex < ((MainActivity) requireActivity()).getPages().size() - 1);
   }
 
   private void navigate(int direction) {
