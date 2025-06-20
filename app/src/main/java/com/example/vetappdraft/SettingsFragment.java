@@ -96,16 +96,16 @@ public class SettingsFragment extends Fragment {
 
         });
 
-//        appearanceButton.setOnClickListener(v -> {
-//            // Navigate to Appearance Settings Fragment
-//            // Replace with your actual fragment
-//            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container, new AppearanceSettingsFragment());//AppearanceSettingsFragment is a placeholder.
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//
-//        });
-//
+        appearanceButton.setOnClickListener(v -> {
+            // Navigate to Appearance Settings Fragment
+            // Replace with your actual fragment
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new ChangeAppearanceFragment ());//AppearanceSettingsFragment is a placeholder.
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        });
+
 //        skillToolboxButton.setOnClickListener(v -> {
 //            // Navigate to Skill Toolbox Fragment
 //            // Replace with your actual fragment
