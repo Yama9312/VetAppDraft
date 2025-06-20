@@ -41,8 +41,7 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         changeOrderButton = view.findViewById(R.id.changeOrderButton);
-//        emergencyContactsButton = view.findViewById(R.id.emergencyContactsButton);
-//        appearanceButton = view.findViewById(R.id.appearanceButton);
+        appearanceButton = view.findViewById(R.id.appearanceButton);
 //        skillToolboxButton = view.findViewById(R.id.skillToolboxButton);
         changeMusicPrefButton = view.findViewById (R.id.changeMusicPrefButton);
 
@@ -97,8 +96,6 @@ public class SettingsFragment extends Fragment {
         });
 
         appearanceButton.setOnClickListener(v -> {
-            // Navigate to Appearance Settings Fragment
-            // Replace with your actual fragment
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new ChangeAppearanceFragment ());//AppearanceSettingsFragment is a placeholder.
             transaction.addToBackStack(null);
