@@ -25,11 +25,24 @@ public class SpotifyPlayerFragment extends Fragment {
   }
 
   @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    WebView webView = view.findViewById(R.id.spotify_webview);
-    webView.getSettings().setJavaScriptEnabled(true);
-    webView.setWebViewClient(new WebViewClient());
-    webView.loadUrl("https://open.spotify.com"); // Optional: Load a specific playlist
+  public void onViewCreated (@NonNull View view,
+      @Nullable Bundle savedInstanceState)
+  {
+    super.onViewCreated (view, savedInstanceState);
+
+    // Open Spotify app
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse("spotify:"));
+    intent.setPackage("com.spotify.music");
+
+    if (intent.resolveActivity(requireContext().getPackageManager()) != null)
+    {
+      startActivity(intent);
+    }
+    else
+    {
+      // Fallback: open Spotify in browser
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://open.spotify.com")));
+    }
   }
 }

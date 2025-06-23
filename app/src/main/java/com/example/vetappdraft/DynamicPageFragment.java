@@ -28,6 +28,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class DynamicPageFragment extends Fragment {
 
   private static final int REQUEST_CALL_PERMISSION = 1001;
@@ -139,18 +142,25 @@ public class DynamicPageFragment extends Fragment {
         if (mPage.getCallFlag()) {
           mCallButton.setVisibility(View.VISIBLE);
           mCallButton.setOnClickListener(v -> {
-            String phone = mDB.vetDAO().getContact();
-            if (phone != null && !phone.isEmpty()) {
-              Intent callIntent = new Intent(Intent.ACTION_CALL);
-              callIntent.setData(Uri.parse("tel:" + phone));
-              if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
-                  != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
-              } else {
-                startActivity(callIntent);
-              }
-            }
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+              String phone = mDB.vetDAO().getContact();
+
+              requireActivity().runOnUiThread(() -> {
+                if (phone != null && !phone.isEmpty()) {
+                  Intent callIntent = new Intent(Intent.ACTION_CALL);
+                  callIntent.setData(Uri.parse("tel:" + phone));
+
+                  if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
+                      != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PERMISSION);
+                  } else {
+                    startActivity(callIntent);
+                  }
+                }
+              });
+            });
           });
         } else {
           mCallButton.setVisibility(View.GONE);

@@ -5,9 +5,4 @@
         android:layout_height="match_parent"
         tools:context=".YoutubePlayerFragment">
 
-    <WebView
-            android:id="@+id/youtube_webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
 </FrameLayout>
