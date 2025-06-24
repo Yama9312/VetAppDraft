@@ -7,10 +7,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.List;
  * EmergencyFragment displays emergency contacts like 911 etc.
  */
 public class EmergencyFragment extends Fragment {
+
+  private Button btnReturn;
 
   @Nullable
   @Override
@@ -34,6 +38,16 @@ public class EmergencyFragment extends Fragment {
     setupPhoneClick(view, R.id.textViewEMS, "911");
     setupPhoneClick(view, R.id.textViewPolice, "123-456-7890");
     setupPhoneClick(view, R.id.textViewHotline, "988");
+    btnReturn = view.findViewById (R.id.returnToStepsButton);
+
+    btnReturn.setOnClickListener(v -> {
+      FragmentTransaction transaction = requireActivity()
+          .getSupportFragmentManager()
+          .beginTransaction();
+      transaction.replace(R.id.fragment_container, new DynamicPageFragment ());
+      transaction.addToBackStack(null);
+      transaction.commit();
+    });
 
     TextView friendTextView = view.findViewById(R.id.textViewFriend);
 

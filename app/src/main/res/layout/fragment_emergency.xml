@@ -57,5 +57,11 @@
             android:textSize="18sp"
             android:layout_marginBottom="16dp" />
 
+    <Button
+            android:text="Return to Steps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/returnToStepsButton" />
+
 </LinearLayout>
 

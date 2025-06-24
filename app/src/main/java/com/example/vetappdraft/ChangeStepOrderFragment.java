@@ -126,14 +126,26 @@ public class ChangeStepOrderFragment extends Fragment {
                 android.R.layout.simple_spinner_item, stepOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        for (int i = 0; i < spinners.size(); i++) {
-            Spinner spinner = spinners.get(i);
-            spinner.setAdapter(adapter);
+        new Thread(() -> {
+            VetDatabase db = VetDatabase.getInstance(requireContext());
+            VetDAO dao = db.vetDAO();
+            List<Integer> choices;
+            VetUser user = dao.getAll ().get (0);
+            choices = user.getMcPageIndexes ();
 
-            if (i < stepOptions.size()) {
-                spinner.setSelection(i);
-            }
-        }
+            requireActivity().runOnUiThread(() -> {
+                for (int i = 0; i < spinners.size(); i++) {
+                    Spinner spinner = spinners.get(i);
+                    spinner.setAdapter(adapter);
+
+                    if (i < stepOptions.size()) {
+                        spinner.setSelection(choices.get (i));
+                    }
+                }
+            });
+
+        }).start();
+
     }
 
     /**

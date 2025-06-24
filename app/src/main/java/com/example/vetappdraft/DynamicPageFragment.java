@@ -35,6 +35,7 @@ public class DynamicPageFragment extends Fragment {
 
   private static final int REQUEST_CALL_PERMISSION = 1001;
 
+
   private Page mPage;
   private TextView mTitleTextView;
   private TextView mContentTextView;
@@ -188,8 +189,6 @@ public class DynamicPageFragment extends Fragment {
         }
       });
     }).start();
-
-    mNextButton.setEnabled(mPageIndex < ((MainActivity) requireActivity()).getPages().size() - 1);
   }
 
   private void navigate(int direction) {

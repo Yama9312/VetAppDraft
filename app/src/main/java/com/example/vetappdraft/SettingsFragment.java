@@ -24,6 +24,8 @@ public class SettingsFragment extends Fragment {
     private Button appearanceButton;
     private Button skillToolboxButton;
     private Button changeMusicPrefButton;
+    private Button returnToSteps;
+
 
     /**
      * Inflates the settings layout and initializes button views.
@@ -39,8 +41,7 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         changeOrderButton = view.findViewById(R.id.changeOrderButton);
-//        emergencyContactsButton = view.findViewById(R.id.emergencyContactsButton);
-//        appearanceButton = view.findViewById(R.id.appearanceButton);
+        appearanceButton = view.findViewById(R.id.appearanceButton);
 //        skillToolboxButton = view.findViewById(R.id.skillToolboxButton);
         changeMusicPrefButton = view.findViewById (R.id.changeMusicPrefButton);
 
@@ -81,17 +82,27 @@ public class SettingsFragment extends Fragment {
             transaction.commit();
 
         });
-//
-//        appearanceButton.setOnClickListener(v -> {
-//            // Navigate to Appearance Settings Fragment
-//            // Replace with your actual fragment
-//            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container, new AppearanceSettingsFragment());//AppearanceSettingsFragment is a placeholder.
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-//
-//        });
-//
+
+        returnToSteps = view.findViewById(R.id.returnToStepsButton);
+
+        returnToSteps.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction();
+            transaction.replace(R.id.fragment_container, new DynamicPageFragment ());
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        });
+
+        appearanceButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, new ChangeAppearanceFragment ());//AppearanceSettingsFragment is a placeholder.
+            transaction.addToBackStack(null);
+            transaction.commit();
+
+        });
+
 //        skillToolboxButton.setOnClickListener(v -> {
 //            // Navigate to Skill Toolbox Fragment
 //            // Replace with your actual fragment
