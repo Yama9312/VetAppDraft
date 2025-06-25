@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -39,6 +40,7 @@ public class DynamicPageFragment extends Fragment {
   private Page mPage;
   private TextView mTitleTextView;
   private TextView mContentTextView;
+  private TextView mcFooterText;
   private Button mPreviousButton;
   private Button mNextButton;
   private Button mPlayButton;
@@ -84,6 +86,7 @@ public class DynamicPageFragment extends Fragment {
     mFidgetButton = view.findViewById(R.id.fidgetButton);
     mMathButton = view.findViewById(R.id.mathButton);
     mCrosswordButton = view.findViewById(R.id.crosswordButton);
+    mcFooterText = view.findViewById (R.id.textView2);
 
     return view;
   }
@@ -112,6 +115,27 @@ public class DynamicPageFragment extends Fragment {
         mNextButton.setEnabled(mPageIndex < user.getMcPageIndexes().size() - 1);
         mTitleTextView.setText(mPage.getName());
         mContentTextView.setText(mPage.getContent());
+        String selectedBranch = user.getMcBranch ();
+
+        switch (selectedBranch) {
+          case "Army":
+            mcFooterText.setText ("Loyalty, Duty, Respect, Selfless Service, Honor, Integrity, Personal Courage");
+            break;
+          case "Marine Corps":
+            mcFooterText.setText ("Honor, Courage, Commitment");
+            break;
+          case "Navy":
+            mcFooterText.setText ("Honor, Courage, Commitment");
+            break;
+          case "Air Force":
+            mcFooterText.setText ("Integrity, Service before Self, Excellence");
+            break;
+          case "Coast Guard":
+            mcFooterText.setText ("Honor, Respect, Devotion to Duty");
+            break;
+          default:
+            break;
+        }
 
         ImageView gifImageView = view.findViewById(R.id.gifImageView);
 

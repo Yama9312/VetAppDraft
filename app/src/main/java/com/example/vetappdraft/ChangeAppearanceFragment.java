@@ -19,6 +19,8 @@ public class ChangeAppearanceFragment extends Fragment {
   private Spinner mSpinChoice;
   private Button btnSaveChanges;
   private Button btnBack;
+  private VetDatabase mDB;
+
 
   //***************************************************************************
   // Method:      ChangeAppearanceFragment
@@ -49,6 +51,8 @@ public class ChangeAppearanceFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_change_appearance, container, false);
+
+    mDB = VetDatabase.getInstance(requireContext());
 
     mSpinChoice = view.findViewById(R.id.spnBranch);
     btnSaveChanges = view.findViewById(R.id.btnSaveChanges);
@@ -94,7 +98,12 @@ public class ChangeAppearanceFragment extends Fragment {
           .edit()
           .putString("selectedBranch", selectedBranch)
           .apply();
-
+          new Thread(() -> {
+            VetDAO dao = mDB.vetDAO ();
+            VetUser user = dao.getAll ().get (0);
+            user.setMcBranch (selectedBranch);
+            dao.update (user);
+          }).start ();
       // Go back to previous fragment
       requireActivity().onBackPressed();
     });
