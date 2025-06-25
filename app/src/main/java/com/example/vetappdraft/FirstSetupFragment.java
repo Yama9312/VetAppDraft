@@ -121,7 +121,7 @@ public class FirstSetupFragment extends Fragment {
       Executors.newSingleThreadExecutor().execute(() -> {
         if (mcDAO.getSize() == 0) {
           VetUser newUser = new VetUser(sBranch, eContact);
-          List<Integer> numbers = new ArrayList<> (List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+          List<Integer> numbers = new ArrayList<> (List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27));
           newUser.setMcPageIndexes (numbers);
           mcDAO.insert(newUser);
         }

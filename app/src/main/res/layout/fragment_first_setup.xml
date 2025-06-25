@@ -84,5 +84,17 @@
             android:gravity="center"
             app:layout_constraintHorizontal_bias="0.506" />
 
+    <TextView
+            android:text="Since this is your first time in the app all steps will be loaded to view. Navigate to the change step order page via the settings button to chnage the order of the steps"
+            android:layout_width="389dp"
+            android:layout_height="65dp"
+            android:id="@+id/tvFirstViewText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.908"
+            android:gravity="center"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
