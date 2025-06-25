@@ -96,12 +96,7 @@ public class ChangeStepOrderFragment extends Fragment {
                         dao.update(user);
                     }
 
-                    requireActivity().runOnUiThread(() -> {
-                        if (getActivity() instanceof MainActivity) {
-                            ((MainActivity) getActivity()).updatePages(pages);
-                        }
-                        exitFragment();
-                    });
+                    requireActivity().runOnUiThread(this::exitFragment);
                 }).start();
             }
         });
@@ -222,9 +217,6 @@ public class ChangeStepOrderFragment extends Fragment {
     public void onPause() {
         super.onPause();
         buildPagesFromSpinners();
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).updatePages(pages);
-        }
     }
 
     /**

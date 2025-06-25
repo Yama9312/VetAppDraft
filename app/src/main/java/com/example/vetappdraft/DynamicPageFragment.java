@@ -100,9 +100,15 @@ public class DynamicPageFragment extends Fragment {
     new Thread(() -> {
       VetDAO dao = mDB.vetDAO();
       VetUser user = dao.getAll().get(0);
-      mPage = ((MainActivity) requireActivity()).getPages().get(user.getMcPageIndexes().get(mPageIndex));
+      if (mPageIndex >= user.getMcPageIndexes().size()) {
+        mPageIndex = 0;
+      }
 
       requireActivity().runOnUiThread(() -> {
+        System.out.println (mPageIndex);
+
+        mPage = ((MainActivity) requireActivity()).getPages().get(user.getMcPageIndexes().get(mPageIndex));
+
         mNextButton.setEnabled(mPageIndex < user.getMcPageIndexes().size() - 1);
         mTitleTextView.setText(mPage.getName());
         mContentTextView.setText(mPage.getContent());
