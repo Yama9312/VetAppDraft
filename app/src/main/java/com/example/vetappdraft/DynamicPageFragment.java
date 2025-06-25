@@ -113,6 +113,12 @@ public class DynamicPageFragment extends Fragment {
           .load(R.drawable.square_breathing)
           .into(gifImageView);
     }
+    else if (mPage.getContent ().equals ("diaphragmatic breathing")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .load(R.drawable.diaphragmic_breathing)
+              .into(gifImageView);
+    }
     else {
       gifImageView.setVisibility(View.GONE);
     }
