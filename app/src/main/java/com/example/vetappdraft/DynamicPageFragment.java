@@ -113,10 +113,29 @@ public class DynamicPageFragment extends Fragment {
           .load(R.drawable.square_breathing)
           .into(gifImageView);
     }
+    else if (mPage.getContent ().equals ("leaves on a stream")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .asGif()
+              .load(R.drawable.stream_gif)
+              .into(gifImageView);
+    }
     else if (mPage.getContent ().equals ("diaphragmatic breathing")) {
       gifImageView.setVisibility(View.VISIBLE);
       Glide.with(requireContext())
               .load(R.drawable.diaphragmic_breathing)
+              .into(gifImageView);
+    }
+    else if (mPage.getContent ().equals ("urge surfing")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .load(R.drawable.surfing_pic)
+              .into(gifImageView);
+    }
+    else if (mPage.getContent ().equals ("mountain meditation")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .load(R.drawable.mountain_pic)
               .into(gifImageView);
     }
     else {
