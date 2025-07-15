@@ -30,11 +30,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.net.URI;
 
 public class DynamicPageFragment extends Fragment {
 
   private static final int REQUEST_CALL_PERMISSION = 1001;
-
 
   private Page mPage;
   private TextView mTitleTextView;
@@ -115,21 +115,43 @@ public class DynamicPageFragment extends Fragment {
 
         ImageView gifImageView = view.findViewById(R.id.gifImageView);
 
-        if (mPage.getContent().equalsIgnoreCase("follow the circle")) {
-          gifImageView.setVisibility(View.VISIBLE);
-          Glide.with(requireContext())
+
+    if (mPage.getContent ().equalsIgnoreCase ("follow the circle")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+          .asGif()
+          .load(R.drawable.circle_breathing)
+          .into(gifImageView);
+    } else if (mPage.getContent ().equalsIgnoreCase ("four squared breathing")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+          .asGif()
+          .load(R.drawable.square_breathing)
+          .into(gifImageView);
+    } else if (mPage.getContent ().equalsIgnoreCase ("leaves on a stream")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
               .asGif()
-              .load(R.drawable.circle_breathing)
+              .load(R.drawable.stream_gif)
               .into(gifImageView);
-        } else if (mPage.getContent().equalsIgnoreCase("four squared breathing")) {
-          gifImageView.setVisibility(View.VISIBLE);
-          Glide.with(requireContext())
-              .asGif()
-              .load(R.drawable.square_breathing)
+    } else if (mPage.getContent ().equalsIgnoreCase ("diaphragmatic breathing")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .load(R.drawable.diaphragmic_breathing)
               .into(gifImageView);
-        } else {
-          gifImageView.setVisibility(View.GONE);
-        }
+    } else if (mPage.getContent ().equalsIgnoreCase ("urge surfing")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .load(R.drawable.surfing_pic)
+              .into(gifImageView);
+    } else if (mPage.getContent ().equalsIgnoreCase ("mountain meditation")) {
+      gifImageView.setVisibility(View.VISIBLE);
+      Glide.with(requireContext())
+              .load(R.drawable.mountain_pic)
+              .into(gifImageView);
+    } else {
+      gifImageView.setVisibility(View.GONE);
+    }
 
         if (mPage.getAudioResId() != -999) {
           mPlayButton.setVisibility(View.VISIBLE);

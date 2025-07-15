@@ -100,9 +100,17 @@ public class MusicSetupFragment extends Fragment {
         requireActivity().runOnUiThread(() -> {
           // Launch your main app fragment or activity
           FragmentTransaction transaction = requireActivity()
-              .getSupportFragmentManager()
-              .beginTransaction();
-          transaction.replace(R.id.fragment_container, DynamicPageFragment.newInstance(0));
+                  .getSupportFragmentManager()
+                  .beginTransaction();
+
+          if (mRadioLocal.isChecked()) {
+            UploadMusicFragment uMFragment = new UploadMusicFragment();
+            transaction.replace(R.id.fragment_container, uMFragment);
+          } else {
+            UploadImageFragment uIFragment = new UploadImageFragment();
+            transaction.replace(R.id.fragment_container, uIFragment);
+          }
+
           transaction.commit();
         });
       }).start();
