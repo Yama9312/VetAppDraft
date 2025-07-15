@@ -20,12 +20,30 @@ import android.widget.TextView;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class LocalMusicPlayerFragment extends Fragment {
 
   private MediaPlayer mediaPlayer;
+  private MusicFile currentMusicFile;
+  private VetDatabase db;
+  private ExecutorService executor;
 
   public LocalMusicPlayerFragment() {
     super(R.layout.fragment_local_music_player); // You'll create this layout
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    db = VetDatabase.getInstance(requireContext());
+    executor = Executors.newSingleThreadExecutor();
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_local_music_player, container, false);
   }
 
   @Override
