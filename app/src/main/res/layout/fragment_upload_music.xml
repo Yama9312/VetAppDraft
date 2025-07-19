@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:text="Select Music File" />
 
+    <ProgressBar
+        android:id="@+id/upload_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/btn_continue"
         android:layout_width="156dp"

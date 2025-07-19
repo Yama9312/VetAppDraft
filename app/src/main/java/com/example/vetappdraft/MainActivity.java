@@ -103,14 +103,17 @@ public class MainActivity extends BaseActivity {
         new Thread(() -> {
             List<VetUser> users = dao.getAll();
 
+            VetDatabase.getInstance(this).musicFileDAO().deleteAllMusicFiles();
+
             Fragment initialFragment;
-//            if (users.isEmpty()) {
-//                initialFragment = new FirstSetupFragment();
-//            } else if (users.get(0).getMusicPreference() == null) {
-//                initialFragment = new MusicSetupFragment();
-//            } else {
-//                initialFragment = new DynamicPageFragment();
-//            }
+            if (users.isEmpty()) {
+                initialFragment = new FirstSetupFragment();
+                VetDatabase.getInstance(this).musicFileDAO().deleteAllMusicFiles();
+            } else if (users.get(0).getMcMusicPreference() == null) {
+                initialFragment = new MusicSetupFragment();
+            } else {
+                initialFragment = new DynamicPageFragment();
+            }
             initialFragment = new FirstSetupFragment();
 
             Fragment finalInitialFragment = initialFragment;

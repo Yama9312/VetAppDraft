@@ -18,4 +18,7 @@ public interface MusicFileDAO {
 
     @Query("SELECT * FROM music_files WHERE userId = :userId")
     LiveData<List<MusicFile>> getMusicFilesByUser(int userId);
+
+    @Query("DELETE FROM music_files")
+    void deleteAllMusicFiles();
 }
