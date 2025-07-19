@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -181,9 +182,11 @@ public class UploadMusicFragment extends Fragment {
             try {
                 MusicFile musicFile = createMusicFileFromUri(uri);
                 db.musicFileDAO().insert(musicFile);
+                Log.d("Upload", "Inserted: " + musicFile.getFileName());
                 requireActivity().runOnUiThread(() ->
                         showUploadSuccess(musicFile.getFileName()));
             } catch (Exception e) {
+                Log.e("Upload", "Error inserting file", e);
                 requireActivity().runOnUiThread(() ->
                         showUploadError(e.getMessage()));
             }
@@ -212,20 +215,41 @@ public class UploadMusicFragment extends Fragment {
         return musicFile;
     }
 
+//    private String getRealPathFromUri(Uri uri) throws IOException {
+//        File tempFile = File.createTempFile("audio_", ".tmp", requireContext().getCacheDir());
+//
+//        try (InputStream inputStream = requireContext().getContentResolver().openInputStream(uri); FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+//
+//            byte[] buffer = new byte[4 * 1024];
+//            int read;
+//
+//            while ((read = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, read);
+//            }
+//
+//            return tempFile.getAbsolutePath();
+//        }
+//    }
+
     private String getRealPathFromUri(Uri uri) throws IOException {
-        File tempFile = File.createTempFile("audio_", ".tmp", requireContext().getCacheDir());
+        File musicDir = new File(requireContext().getFilesDir(), "music");
+        if (!musicDir.exists()) {
+            musicDir.mkdirs();
+        }
 
-        try (InputStream inputStream = requireContext().getContentResolver().openInputStream(uri); FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+        String fileName = "audio_" + System.currentTimeMillis() + ".mp3";
+        File outputFile = new File(musicDir, fileName);
 
+        try (InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
+             FileOutputStream outputStream = new FileOutputStream(outputFile)) {
             byte[] buffer = new byte[4 * 1024];
             int read;
-
             while ((read = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, read);
             }
-
-            return tempFile.getAbsolutePath();
         }
+
+        return outputFile.getAbsolutePath(); // Now points to a permanent file
     }
 
     private long extractAudioDuration(Uri uri) {

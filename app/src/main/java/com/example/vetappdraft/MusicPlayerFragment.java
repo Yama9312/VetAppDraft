@@ -33,9 +33,9 @@ public class MusicPlayerFragment extends Fragment {
 
       Fragment playerFragment;
       switch (pref) {
-        case "YouTube":
+        case "YOUTUBE":
           playerFragment = new YoutubePlayerFragment(); break;
-        case "Spotify":
+        case "SPOTIFY":
           playerFragment = new SpotifyPlayerFragment(); break;
         default:
           playerFragment = new LocalMusicPlayerFragment(); break;
