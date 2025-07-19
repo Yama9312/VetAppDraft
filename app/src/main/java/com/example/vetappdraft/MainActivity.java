@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity {
         new Thread(() -> {
             List<VetUser> users = dao.getAll();
 
-            VetDatabase.getInstance(this).musicFileDAO().deleteAllMusicFiles();
+            //VetDatabase.getInstance(this).musicFileDAO().deleteAllMusicFiles();
 
             Fragment initialFragment;
             if (users.isEmpty()) {
