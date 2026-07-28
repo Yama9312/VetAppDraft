@@ -1,11 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.VetAppDraft" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <!--
+      Compose owns all app theming (see ui/theme/Theme.kt). This XML theme exists only so
+      the manifest has something to point at and so the window background matches the
+      Compose surface before the first frame is drawn - otherwise the app flashes white
+      on launch in dark mode.
+    -->
+    <style name="Theme.VetAppDraft" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-
+        <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
-
-    <style name="Theme.VetAppDraft" parent="Base.Theme.VetAppDraft" />
 </resources>

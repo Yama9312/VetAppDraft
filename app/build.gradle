@@ -1,63 +1,91 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace 'com.example.vetappdraft'
-    compileSdk 34
+    namespace 'edu.pacificu.berglund.vetapp'
+    compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.vetappdraft"
+        applicationId "edu.pacificu.berglund.vetapp"
+        // minSdk stays at 24 deliberately: the target audience skews older and is more
+        // likely to be on an ageing device. Raising it would drop real users.
         minSdk 24
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    // Export the schema so Room migrations can be written and tested rather than falling
+    // back to a destructive migration that would wipe the veteran's safety plan.
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas".toString())
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        compose true
+    }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
 }
 
 dependencies {
+    implementation libs.androidx.core.ktx
 
-    implementation libs.appcompat
-    implementation libs.material
-    implementation libs.activity
-    implementation libs.constraintlayout
-    implementation libs.preference
+    // Compose
+    implementation platform(libs.androidx.compose.bom)
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.graphics
+    implementation libs.androidx.compose.ui.tooling.preview
+    implementation libs.androidx.compose.material3
+    implementation libs.androidx.compose.material.icons.extended
+    implementation libs.androidx.navigation.compose
+    implementation libs.androidx.lifecycle.runtime.compose
+    implementation libs.androidx.lifecycle.viewmodel.compose
+    debugImplementation libs.androidx.compose.ui.tooling
+
+    // Data
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.ktx
+    ksp libs.androidx.room.compiler
+
+    // Media. Narration uses MediaPlayer directly (short res/raw clips, no queue or
+    // background playback), so ExoPlayer would be weight without benefit. The two
+    // breathing GIFs are now drawn in Compose, so Glide/Coil are gone too.
+
     testImplementation libs.junit
-    androidTestImplementation libs.ext.junit
-    androidTestImplementation libs.espresso.core
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
-
-    def room_version = "2.6.1"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    // optional - RxJava2 support for Room
-    //implementation "androidx.room:room-rxjava2:$room_version"
-    // optional - RxJava3 support for Room
-    implementation "androidx.room:room-rxjava3:$room_version"
-    // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation "androidx.room:room-guava:$room_version"
-    // optional - Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
-    // optional - Paging 3 Integration
-    implementation "androidx.room:room-paging:$room_version"
-    // This differs from the online docs!
-
-    // for phone number formatting
-    implementation platform('androidx.compose:compose-bom:2024.10.01')
-    implementation 'androidx.compose.material3:material3'
-
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.androidx.room.testing
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.androidx.espresso.core
+    androidTestImplementation platform(libs.androidx.compose.bom)
+    androidTestImplementation libs.androidx.compose.ui.test.junit4
+    debugImplementation libs.androidx.compose.ui.test.manifest
 }
