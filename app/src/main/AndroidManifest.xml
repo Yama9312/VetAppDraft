@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-        android:installLocation="preferExternal">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Used for the streaming hand-off and the distraction links. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--
+      Dialling uses ACTION_DIAL, which hands off to the system dialler and needs no
+      permission. CALL_PHONE was previously declared for an ACTION_CALL path that had
+      no permission-result handler and so never completed on first grant; ACTION_DIAL
+      also matches the wireframe ("this screen will be the phone's default screen for
+      calling someone"). Devices without telephony are still supported.
+    -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
+    <!--
+      Android 11+ package visibility filtering. Without these, resolveActivity() for
+      the Spotify and YouTube packages returns null on every device running API 30+,
+      so the streaming hand-off silently degraded to the browser even when the app
+      was installed.
+    -->
+    <queries>
+        <package android:name="com.spotify.music" />
+        <package android:name="com.google.android.youtube" />
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
+    <!--
+      allowBackup is off deliberately. The database holds a clinician-configured
+      safety plan and an emergency contact. The project documentation raises HIPAA /
+      PHI handling as an open question and never resolves it, so the safe default is
+      on-device only, with nothing synced to Google Drive backup.
+    -->
     <application
-        android:allowBackup="true"
+        android:name=".VetApplication"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -21,54 +52,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VetAppDraft"
         tools:targetApi="31">
-        <activity
-            android:name=".BaseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".step10"
-            android:exported="false" />
-        <activity
-            android:name=".step9"
-            android:exported="false" />
-        <activity
-            android:name=".ChangeStepOrderFragment"
-            android:exported="false" />
-        <activity
-            android:name=".generalStep"
-            android:exported="false" />
-        <activity
-            android:name=".modifyStepOrder"
-            android:exported="false" />
-        <activity
-            android:name=".step8"
-            android:exported="false" />
-        <activity
-            android:name=".step7"
-            android:exported="false" />
-        <activity
-            android:name=".step6"
-            android:exported="false" />
-        <activity
-            android:name=".step5"
-            android:exported="false" />
-        <activity
-            android:name=".step4"
-            android:exported="false" />
-        <activity
-            android:name=".step3"
-            android:exported="false" />
-        <activity
-            android:name=".step2"
-            android:exported="false" />
-        <activity
-            android:name=".changeSteps"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,40 +1,6 @@
 <resources>
-    <string name="app_name">VetAppDraft</string>
-    <string name="set_goToNextActivity">Set</string>
+    <string name="app_name">Safety S.O.P.</string>
+
+    <!-- Shown in the top bar on every screen. -->
     <string name="top_of_the_screen_slogan">Honor\t•\tDuty\t•\tCountry</string>
-    <string name="EmergencyContacts">EMS 911\nVSH 1-800-273-8255</string>
-    <string name="SubmitSettingsButton">Submit</string>
-    <string name="EmergencyContactRequest">Enter your emergency contact\'s phone number:</string>
-    <string name="BranchSelection">Select your Branch of service:</string>
-    <string name="EmergencyContactReuestHint">Enter phone number...</string>
-    <string name="hello_blank_fragment">VetApp</string>
-    <string name="recycler_view_description">List of steps</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="changeOrderOfSteps">Change the Order of Steps</string>
-    <string name="applyChangesBtn">Apply Changes</string>
-    <string name="go_back">Go back</string>
-    <string name="step1">Step 1:</string>
-    <string name="step2">Step 2:</string>
-    <string name="step3">Step 3:</string>
-    <string name="step4">Step 4:</string>
-    <string name="step5">Step 5:</string>
-    <string name="step6">Step 6:</string>
-    <string name="step7">Step 7:</string>
-    <string name="step8">Step 8:</string>
-    <string name="step9">Step 9:</string>
-    <string name="step10">Step 10:</string>
-
 </resources>

@@ -1,0 +1,66 @@
+<resources>
+    <!--
+      Step catalog. This is clinical content authored by the project's psychologist
+      (see "Team Rehder/Design/S.O.P.s.docx" and "Skills/MASTER LIST.docx") and is
+      carried over verbatim from the previous hardcoded list in MainActivity. Do not
+      reword without the content owner.
+    -->
+
+    <string name="step_deep_breath">Take a deep breath</string>
+
+    <string name="step_reasons_for_living">Review reasons for living</string>
+    <string name="step_reasons_for_living_body">Phone a friend</string>
+
+    <string name="step_halt">H.A.L.T.</string>
+    <string name="step_halt_body">Am I…\n\nHungry?\nAngry?\nLonely?\nTired?</string>
+
+    <string name="step_two_minute_mindful_breathing">2 minute mindful breathing</string>
+    <string name="step_safety_sop">Safety S.O.P.</string>
+    <string name="step_body_scan">Body scan meditation</string>
+    <string name="step_listen_to_music">Listen to music</string>
+
+    <string name="step_call_someone">Call someone</string>
+    <string name="step_call_someone_body">See who is online</string>
+
+    <string name="step_call_hotlines">Call hotlines</string>
+    <string name="step_put_weapons_down">Put weapons down</string>
+    <string name="step_observe_and_describe">Observe &amp; describe</string>
+    <string name="step_leaves_on_a_stream">Leaves on a stream</string>
+    <string name="step_identify_values">Identify values</string>
+    <string name="step_mindful_walking">Mindful walking</string>
+    <string name="step_progressive_muscle_relaxation">Progressive muscle relaxation</string>
+    <string name="step_distract_yourself">Distract yourself</string>
+    <string name="step_awareness_of_thought">Awareness of thought</string>
+    <string name="step_follow_the_circle">Follow the circle</string>
+    <string name="step_urge_surfing">Urge surfing</string>
+
+    <string name="step_sober">S.O.B.E.R.</string>
+    <string name="step_sober_body">Stop\nObserve\nBreathe\nExpand\nRespond</string>
+
+    <string name="step_four_square_breathing">Four squared breathing</string>
+    <string name="step_diaphragmatic_breathing">Diaphragmatic breathing</string>
+    <string name="step_five_senses">5 senses</string>
+    <string name="step_mountain_meditation">Mountain meditation</string>
+    <string name="step_distractions">Distractions</string>
+    <string name="step_whole_body_breathing">Whole body breathing</string>
+    <string name="step_breathing_space">Breathing space</string>
+    <string name="step_breathing_body">Breathing body</string>
+
+    <!--
+      Branch names and core values. Values text is quoted from the project's veteran
+      culture briefing; it was previously hardcoded in a switch in DynamicPageFragment.
+    -->
+    <string name="branch_army">Army</string>
+    <string name="branch_marine_corps">Marine Corps</string>
+    <string name="branch_navy">Navy</string>
+    <string name="branch_air_force">Air Force</string>
+    <string name="branch_coast_guard">Coast Guard</string>
+    <string name="branch_neutral">Neutral</string>
+
+    <string name="values_army">Loyalty • Duty • Respect • Selfless Service • Honor • Integrity • Personal Courage</string>
+    <string name="values_marine_corps">Honor • Courage • Commitment</string>
+    <string name="values_navy">Honor • Courage • Commitment</string>
+    <string name="values_air_force">Integrity • Service before Self • Excellence</string>
+    <string name="values_coast_guard">Honor • Respect • Devotion to Duty</string>
+    <string name="values_neutral">Duty • Honor • Country</string>
+</resources>

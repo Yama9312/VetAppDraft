@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "804e12a8bbf0b5b7924d024a1c923b38",
+    "entities": [
+      {
+        "tableName": "VetUser",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`UID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mcBranch` TEXT, `mcEContact` TEXT, `mcMusicPreference` TEXT, `mcPageIndexes` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "UID",
+            "columnName": "UID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mcBranch",
+            "columnName": "mcBranch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mcEContact",
+            "columnName": "mcEContact",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mcMusicPreference",
+            "columnName": "mcMusicPreference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mcPageIndexes",
+            "columnName": "mcPageIndexes",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "UID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '804e12a8bbf0b5b7924d024a1c923b38')"
+    ]
+  }
+}
